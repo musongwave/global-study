@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Global Study — всё для студента в одном месте. Новости, образование, стажировки и полезные ресурсы из Telegram-канала.">
+  <meta property="og:title" content="Global Study — всё для студента">
+  <meta property="og:description" content="Новости, образование, стажировки и полезные ресурсы для студентов">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://globalstudyy.github.io">
+  <title>Global Study — всё для студента</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="nav__logo">Global Study</a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#posts">Главная</a></li>
+        <li><a href="#posts" data-category="новости">Новости</a></li>
+        <li><a href="#posts" data-category="образование">Образование</a></li>
+        <li><a href="#posts" data-category="возможности">Возможности</a></li>
+        <li><a href="#posts" data-category="ресурсы">Ресурсы</a></li>
+      </ul>
+      <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--primary">Подписаться</a>
+      <button class="burger" id="burger" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="container hero__content">
+      <h1 class="hero__title">Всё для студента —<br>в одном месте</h1>
+      <p class="hero__subtitle">Новости, стипендии, стажировки и полезные ресурсы из Telegram-канала Global Study</p>
+      <a href="#posts" class="btn btn--white">Читать последние посты</a>
+    </div>
+  </section>
+
+  <main class="container" id="posts">
+    <div class="filters">
+      <div class="filters__categories" id="categories">
+        <button class="pill pill--active" data-category="all">Все</button>
+        <button class="pill" data-category="новости">Новости</button>
+        <button class="pill" data-category="образование">Образование</button>
+        <button class="pill" data-category="возможности">Возможности</button>
+        <button class="pill" data-category="ресурсы">Ресурсы</button>
+      </div>
+      <input class="search" id="search" type="search" placeholder="Поиск по постам..." aria-label="Поиск по постам">
+    </div>
+    <div class="posts-grid" id="postsGrid" aria-live="polite"></div>
+    <p class="empty" id="empty" hidden>Ничего не найдено. Попробуй другой запрос.</p>
+  </main>
+
+  <section class="cta">
+    <div class="container cta__content">
+      <h2 class="cta__title">Не пропускай новые посты</h2>
+      <p class="cta__text">Подпишись на Telegram-канал и получай актуальную информацию первым</p>
+      <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--white">Открыть Telegram</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="#" class="footer__logo">Global Study</a>
+      <nav class="footer__nav" aria-label="Разделы сайта">
+        <a href="#posts" data-category="новости">Новости</a>
+        <a href="#posts" data-category="образование">Образование</a>
+        <a href="#posts" data-category="возможности">Возможности</a>
+        <a href="#posts" data-category="ресурсы">Ресурсы</a>
+      </nav>
+      <div class="footer__contacts">
+        <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:globalgo@gmail.com">globalgo@gmail.com</a>
+      </div>
+      <p class="footer__copy">© 2025 Global Study. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
