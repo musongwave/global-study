@@ -17,14 +17,14 @@
     <nav class="nav container">
       <a href="#" class="nav__logo">Global Study</a>
       <ul class="nav__links" id="navLinks">
-        <li><a href="#posts">Главная</a></li>
+        <li><a href="#posts" data-category="all">Главная</a></li>
         <li><a href="#posts" data-category="новости">Новости</a></li>
         <li><a href="#posts" data-category="образование">Образование</a></li>
         <li><a href="#posts" data-category="возможности">Возможности</a></li>
         <li><a href="#posts" data-category="ресурсы">Ресурсы</a></li>
       </ul>
       <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--primary">Подписаться</a>
-      <button class="burger" id="burger" aria-label="Открыть меню">
+      <button type="button" class="burger" id="burger" aria-label="Открыть меню">
         <span></span><span></span><span></span>
       </button>
     </nav>
@@ -41,11 +41,11 @@
   <main class="container" id="posts">
     <div class="filters">
       <div class="filters__categories" id="categories">
-        <button class="pill pill--active" data-category="all">Все</button>
-        <button class="pill" data-category="новости">Новости</button>
-        <button class="pill" data-category="образование">Образование</button>
-        <button class="pill" data-category="возможности">Возможности</button>
-        <button class="pill" data-category="ресурсы">Ресурсы</button>
+        <button type="button" class="pill pill--active" data-category="all">Все</button>
+        <button type="button" class="pill" data-category="новости">Новости</button>
+        <button type="button" class="pill" data-category="образование">Образование</button>
+        <button type="button" class="pill" data-category="возможности">Возможности</button>
+        <button type="button" class="pill" data-category="ресурсы">Ресурсы</button>
       </div>
       <input class="search" id="search" type="search" placeholder="Поиск по постам..." aria-label="Поиск по постам">
     </div>
