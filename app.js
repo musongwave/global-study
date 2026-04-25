@@ -14,7 +14,8 @@ async function init() {
     if (!res.ok) throw new Error('Ошибка загрузки');
     allPosts = await res.json();
     render(allPosts);
-  } catch {
+  } catch (err) {
+    console.error('Ошибка загрузки постов:', err);
     postsGrid.innerHTML = '<p class="empty">Не удалось загрузить посты. Попробуй позже.</p>';
   }
 }
@@ -91,7 +92,7 @@ burger.addEventListener('click', () => {
 });
 
 // Клик по ссылкам навигации с data-category (шапка и подвал)
-document.querySelectorAll('[data-category]').forEach(link => {
+document.querySelectorAll('a[data-category]').forEach(link => {
   link.addEventListener('click', e => {
     const cat = link.dataset.category;
     if (!cat) return;
