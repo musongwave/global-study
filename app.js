@@ -164,7 +164,63 @@ window.addEventListener('load', () => {
     VanillaTilt.init(document.querySelectorAll('.uni-card'), {
       max: 8, speed: 300, scale: 1.03
     });
+    VanillaTilt.init(document.querySelectorAll('.stat'), {
+      max: 22, speed: 250, glare: true, 'max-glare': 0.25, scale: 1.07,
+      perspective: 700
+    });
   }
+
+  // === ЗВУК ЩЕЛЧКА ДЛЯ СТАТИСТИКИ ===
+  let audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+
+  function playClick() {
+    try {
+      const ctx = getAudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+
+      // Короткий механический щелчок: импульс белого шума + тон
+      const dur = 0.055;
+      const buf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * dur), ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) {
+        // Белый шум с быстрым экспоненциальным затуханием
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.008));
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buf;
+
+      // Тональный щелчок
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(900, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + dur);
+
+      const oscGain = ctx.createGain();
+      oscGain.gain.setValueAtTime(0.18, ctx.currentTime);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.value = 0.12;
+
+      noise.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      osc.connect(oscGain);
+      oscGain.connect(ctx.destination);
+
+      noise.start(ctx.currentTime);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + dur);
+    } catch (_) { /* браузер заблокировал Audio API */ }
+  }
+
+  document.querySelectorAll('.stat').forEach(el => {
+    el.addEventListener('mouseenter', playClick);
+  });
 });
 
 // === КАРУСЕЛЬ УНИВЕРСИТЕТОВ ===

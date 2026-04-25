@@ -227,6 +227,19 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   gap: 2rem;
   text-align: center;
 }
+.stat {
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  cursor: default;
+  border: 1px solid transparent;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.stat:hover {
+  border-color: var(--border-gold);
+  box-shadow: 0 16px 40px rgba(212,175,55,.15);
+}
 .stat__num {
   display: block;
   font-family: var(--font-heading);
