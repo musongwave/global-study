@@ -123,7 +123,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 /* === HERO === */
 .hero {
   background: var(--gradient);
-  padding: calc(var(--header-h) + 5rem) 0 5rem;
+  padding: calc(var(--header-h) + 5rem) 1rem 5rem;
   text-align: center;
   color: #fff;
 }
@@ -145,7 +145,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 /* === ОСНОВНАЯ СЕКЦИЯ === */
 main {
-  padding: 3rem 1rem 4rem;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
   scroll-margin-top: var(--header-h);
 }
 
