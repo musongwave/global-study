@@ -1,0 +1,39 @@
+name: Синхронизация постов из Telegram
+
+on:
+  schedule:
+    # Каждый день в 09:00 UTC (12:00 по Ташкенту)
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    # Ручной запуск из вкладки Actions на GitHub
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # нужно для git push
+
+    steps:
+      - name: Клонировать репозиторий
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Установить Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Установить зависимости
+        run: pip install anthropic
+
+      - name: Синхронизировать посты
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/sync_posts.py
+
+      - name: Отчёт
+        if: always()
+        run: |
+          echo "Синхронизация завершена: $(date '+%Y-%m-%d %H:%M UTC')"
+          echo "Постов в data/posts.json: $(python3 -c "import json; print(len(json.load(open('data/posts.json'))))" 2>/dev/null || echo 'файл не найден')"
