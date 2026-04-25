@@ -104,6 +104,7 @@ document.querySelectorAll('a[data-category]').forEach(link => {
     document.getElementById('posts').scrollIntoView({ behavior: 'smooth' });
     navLinks.classList.remove('open');
     burger.classList.remove('burger--open');
+    burger.setAttribute('aria-label', 'Открыть меню');
   });
 });
 

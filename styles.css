@@ -318,6 +318,11 @@ main {
   animation: fadeInUp .4s ease forwards;
 }
 
+/* === ДОСТУПНОСТЬ === */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { animation: none; opacity: 1; }
+}
+
 /* === АДАПТИВНОСТЬ === */
 @media (min-width: 600px) {
   .container { padding: 0 1.5rem; }
