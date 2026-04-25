@@ -1,17 +1,21 @@
-const postsGrid  = document.getElementById('postsGrid');
-const emptyMsg   = document.getElementById('empty');
+// === ЭЛЕМЕНТЫ ===
+const postsGrid   = document.getElementById('postsGrid');
+const emptyMsg    = document.getElementById('empty');
 const searchInput = document.getElementById('search');
 const pills       = document.querySelectorAll('.pill');
-const burger      = document.getElementById('burger');
-const navLinks    = document.getElementById('navLinks');
+const header      = document.getElementById('header');
+const menuBtn     = document.getElementById('menuBtn');
+const mobileMenu  = document.getElementById('mobileMenu');
+const menuText    = menuBtn.querySelector('.menu-text');
 
 let allPosts = [];
 let activeCategory = 'all';
 
+// === ПОСТЫ: ЗАГРУЗКА И РЕНДЕР ===
 async function init() {
   try {
     const res = await fetch('data/posts.json');
-    if (!res.ok) throw new Error('Ошибка загрузки');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     allPosts = await res.json();
     render(allPosts);
   } catch (err) {
@@ -21,7 +25,8 @@ async function init() {
 }
 
 function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString('ru-RU', {
+  const d = new Date(dateStr);
+  return isNaN(d) ? dateStr : d.toLocaleDateString('ru-RU', {
     day: 'numeric', month: 'long', year: 'numeric'
   });
 }
@@ -37,7 +42,7 @@ function createCard(post, index) {
         <time class="card__date" datetime="${post.date}">${formatDate(post.date)}</time>
         <h2 class="card__title">${post.title}</h2>
         <p class="card__preview">${post.preview}</p>
-        <a class="card__link btn btn--outline"
+        <a class="card__link btn btn--outline-gold"
            href="${post.tg_link}"
            target="_blank"
            rel="noopener noreferrer">
@@ -70,7 +75,7 @@ function getFiltered() {
   });
 }
 
-// Фильтр по категории через таблетки
+// Таблетки-фильтры
 pills.forEach(pill => {
   pill.addEventListener('click', () => {
     pills.forEach(p => p.classList.remove('pill--active'));
@@ -83,15 +88,24 @@ pills.forEach(pill => {
 // Поиск в реальном времени
 searchInput.addEventListener('input', () => render(getFiltered()));
 
-// Бургер-меню
-burger.addEventListener('click', () => {
-  burger.classList.toggle('burger--open');
-  navLinks.classList.toggle('open');
-  burger.setAttribute('aria-label',
-    navLinks.classList.contains('open') ? 'Закрыть меню' : 'Открыть меню');
-});
+// === ШАПКА: СКРОЛЛ ===
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
 
-// Клик по ссылкам навигации с data-category (шапка и подвал)
+// === МОБИЛЬНОЕ МЕНЮ (FULLSCREEN) ===
+function toggleMenu(force) {
+  const open = typeof force === 'boolean' ? force : !mobileMenu.classList.contains('active');
+  menuBtn.classList.toggle('active', open);
+  mobileMenu.classList.toggle('active', open);
+  mobileMenu.setAttribute('aria-hidden', String(!open));
+  menuText.textContent = open ? 'закрыть' : 'меню';
+  menuBtn.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+}
+
+menuBtn.addEventListener('click', () => toggleMenu());
+
+// Ссылки с data-category (шапка + мобильное меню + подвал)
 document.querySelectorAll('a[data-category]').forEach(link => {
   link.addEventListener('click', e => {
     const cat = link.dataset.category;
@@ -102,10 +116,97 @@ document.querySelectorAll('a[data-category]').forEach(link => {
     render(getFiltered());
     searchInput.value = '';
     document.getElementById('posts').scrollIntoView({ behavior: 'smooth' });
-    navLinks.classList.remove('open');
-    burger.classList.remove('burger--open');
-    burger.setAttribute('aria-label', 'Открыть меню');
+    toggleMenu(false);
   });
 });
+
+// Закрыть меню при клике на ссылку без data-category
+document.querySelectorAll('.mobile-link:not([data-category])').forEach(link => {
+  link.addEventListener('click', () => toggleMenu(false));
+});
+
+// === SCROLL REVEAL (IntersectionObserver) ===
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// === VANTA GLOBE ===
+window.addEventListener('load', () => {
+  if (typeof VANTA !== 'undefined') {
+    VANTA.GLOBE({
+      el: '#heroBg',
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200,
+      minWidth: 200,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0xd4af37,
+      color2: 0x2a2a2a,
+      size: 1.5,
+      backgroundColor: 0x0a0a0a
+    });
+  }
+
+  // === VANILLA TILT ===
+  if (typeof VanillaTilt !== 'undefined') {
+    VanillaTilt.init(document.querySelectorAll('.service-card'), {
+      max: 12, speed: 400, glare: true, 'max-glare': 0.12
+    });
+    VanillaTilt.init(document.querySelectorAll('.uni-card'), {
+      max: 8, speed: 300, scale: 1.03
+    });
+  }
+});
+
+// === КАРУСЕЛЬ УНИВЕРСИТЕТОВ ===
+const uniCarousel = document.getElementById('uniCarousel');
+const prevBtn = document.getElementById('prevUni');
+const nextBtn = document.getElementById('nextUni');
+
+if (uniCarousel && prevBtn && nextBtn) {
+  const scrollAmt = 300;
+  prevBtn.addEventListener('click', () => uniCarousel.scrollBy({ left: -scrollAmt, behavior: 'smooth' }));
+  nextBtn.addEventListener('click', () => uniCarousel.scrollBy({ left: scrollAmt, behavior: 'smooth' }));
+}
+
+// === МОДАЛ УНИВЕРСИТЕТОВ ===
+const uniModal   = document.getElementById('uniModal');
+const closeModal = document.getElementById('closeModal');
+const modalBody  = document.getElementById('modalBody');
+
+if (uniModal) {
+  document.querySelectorAll('.uni-card').forEach(card => {
+    const open = () => {
+      const details = card.querySelector('.uni-details');
+      if (!details) return;
+      modalBody.innerHTML = details.innerHTML;
+      uniModal.classList.add('active');
+      uniModal.setAttribute('aria-hidden', 'false');
+      closeModal.focus();
+    };
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
+
+  const closeUniModal = () => {
+    uniModal.classList.remove('active');
+    uniModal.setAttribute('aria-hidden', 'true');
+  };
+
+  closeModal.addEventListener('click', closeUniModal);
+  uniModal.addEventListener('click', e => { if (e.target === uniModal) closeUniModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && uniModal.classList.contains('active')) closeUniModal(); });
+}
 
 init();

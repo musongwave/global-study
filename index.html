@@ -3,45 +3,254 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Global Study — всё для студента в одном месте. Новости, образование, стажировки и полезные ресурсы из Telegram-канала.">
-  <meta property="og:title" content="Global Study — всё для студента">
-  <meta property="og:description" content="Новости, образование, стажировки и полезные ресурсы для студентов">
+  <meta name="description" content="Global Study — помощь в поступлении в топовые университеты мира. Гранты, визовая поддержка и полное сопровождение.">
+  <meta property="og:title" content="Global Study — обучение за рубежом">
+  <meta property="og:description" content="Помощь в поступлении в топовые университеты. 3000+ студентов, 30+ стран.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://musongwave.github.io/global-study/">
   <meta property="og:image" content="https://picsum.photos/seed/hero/1200/630">
-  <title>Global Study — всё для студента</title>
+  <title>Global Study — обучение за рубежом</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+  <!-- Шапка -->
   <header class="header" id="header">
-    <nav class="nav container" aria-label="Основная навигация">
-      <a href="#" class="nav__logo">Global Study</a>
-      <ul class="nav__links" id="navLinks">
-        <li><a href="#posts" data-category="all">Главная</a></li>
-        <li><a href="#posts" data-category="новости">Новости</a></li>
-        <li><a href="#posts" data-category="образование">Образование</a></li>
-        <li><a href="#posts" data-category="возможности">Возможности</a></li>
-        <li><a href="#posts" data-category="ресурсы">Ресурсы</a></li>
-      </ul>
-      <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--primary">Подписаться</a>
-      <button type="button" class="burger" id="burger" aria-label="Открыть меню">
-        <span></span><span></span><span></span>
+    <div class="header__inner">
+      <a href="#" class="header__logo">Global Study</a>
+      <nav class="header__nav" aria-label="Основная навигация">
+        <a href="#posts" data-category="all">Главная</a>
+        <a href="#services">Услуги</a>
+        <a href="#universities">Университеты</a>
+        <a href="#posts" data-category="новости">Новости</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+      <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--gold header__cta">Подписаться</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Открыть меню">
+        <span class="menu-text">меню</span>
+        <div class="menu-icon"></div>
       </button>
-    </nav>
+    </div>
   </header>
 
+  <!-- Мобильное меню (полноэкранное) -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav class="mobile-nav" aria-label="Мобильная навигация">
+      <a href="#posts" class="mobile-link" data-category="all">главная</a>
+      <a href="#services" class="mobile-link">услуги</a>
+      <a href="#universities" class="mobile-link">университеты</a>
+      <a href="#posts" class="mobile-link" data-category="новости">новости</a>
+      <a href="#contact" class="mobile-link">контакты</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
   <section class="hero">
-    <div class="container hero__content">
-      <h1 class="hero__title">Всё для студента —<br>в одном месте</h1>
-      <p class="hero__subtitle">Новости, стипендии, стажировки и полезные ресурсы из Telegram-канала Global Study</p>
-      <a href="#posts" class="btn btn--white">Читать последние посты</a>
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero__content reveal">
+      <p class="hero__eyebrow">Агентство международного образования</p>
+      <h1>Обучение за рубежом<br>с гарантированной<br>поддержкой</h1>
+      <p class="hero__sub">Ваш путь в топовые университеты мира. Гранты, визовое сопровождение и поддержка на каждом этапе.</p>
+      <div class="hero__btns">
+        <a href="#contact" class="btn btn--light">Начать путь</a>
+        <a href="#universities" class="btn btn--outline-light">Университеты</a>
+      </div>
     </div>
   </section>
 
-  <main class="container" id="posts">
-    <div class="filters">
+  <!-- Статистика -->
+  <section class="stats">
+    <div class="container stats__grid reveal">
+      <div class="stat">
+        <span class="stat__num">5+</span>
+        <span class="stat__label">лет опыта</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">3 000+</span>
+        <span class="stat__label">студентов</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">30+</span>
+        <span class="stat__label">стран мира</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">100%</span>
+        <span class="stat__label">помощь с грантами</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Услуги -->
+  <section id="services" class="section container">
+    <h2 class="section-title reveal">Наши услуги</h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-card__icon">🎓</div>
+        <h3>Подбор университета</h3>
+        <p>Анализируем ваш профиль и находим идеальные варианты в США, Канаде, Европе и Азии.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.1s">
+        <div class="service-card__icon">💰</div>
+        <h3>Помощь со стипендиями</h3>
+        <p>Помогаем получить гранты и стипендии, покрывающие до 100% стоимости обучения.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.2s">
+        <div class="service-card__icon">✈️</div>
+        <h3>Визовая поддержка</h3>
+        <p>Полное сопровождение в подготовке документов и прохождении интервью в посольстве.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Топовые направления -->
+  <section id="destinations" class="section container split-section">
+    <div class="split-content reveal">
+      <h2>Топовые направления</h2>
+      <p>Открываем двери в лучшие учебные заведения мира. США, Канада, Италия, Германия, Южная Корея, Польша, Венгрия, Япония.</p>
+      <p>Каждая страна предлагает уникальные карьерные возможности и программы финансирования для иностранных студентов.</p>
+      <a href="#contact" class="btn btn--gold" style="margin-top:2rem">Получить консультацию</a>
+    </div>
+    <img src="assets/university_campus_1777027031669.png" alt="Кампус университета" class="split-img reveal">
+  </section>
+
+  <!-- Университеты -->
+  <section id="universities" class="section container">
+    <div class="universities__header">
+      <h2 class="section-title reveal" style="margin-bottom:0;border:none;padding:0">Наши университеты</h2>
+      <div class="carousel-controls reveal">
+        <button type="button" id="prevUni" class="carousel-btn" aria-label="Назад">←</button>
+        <button type="button" id="nextUni" class="carousel-btn" aria-label="Вперёд">→</button>
+      </div>
+    </div>
+    <div class="carousel-container reveal">
+      <div class="universities-carousel" id="uniCarousel">
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇮🇹</span>
+            Politecnico di Milano
+            <span class="uni-country">Италия</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>Politecnico di Milano (Италия)</h3>
+            <p>Обучение на английском и итальянском языках. Ведущий технический вуз Италии.</p>
+            <p><strong>Финансирование:</strong> Доступна стипендия DSU (до 7 200€ в год), покрывающая проживание и бесплатное питание в столовой.</p>
+          </div>
+        </div>
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇩🇪</span>
+            Technical University of Munich
+            <span class="uni-country">Германия</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>Technical University of Munich (Германия)</h3>
+            <p>Один из лучших технических университетов Европы. Программы на немецком и английском.</p>
+            <p><strong>Финансирование:</strong> Обучение в государственных вузах Германии бесплатно. Помогаем с открытием блокированного счёта и визой.</p>
+          </div>
+        </div>
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇨🇦</span>
+            University of Toronto
+            <span class="uni-country">Канада</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>University of Toronto (Канада)</h3>
+            <p>Входит в мировой Топ-20. Самый престижный университет Канады.</p>
+            <p><strong>Преимущества:</strong> Право работать 20 ч/нед во время учёбы. После выпуска — Post-Graduation Work Permit и прямой путь к ПМЖ.</p>
+          </div>
+        </div>
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇰🇷</span>
+            Seoul National University
+            <span class="uni-country">Южная Корея</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>Seoul National University (Южная Корея)</h3>
+            <p>Университет №1 в Корее (SKY). Передовые технологии и высочайший уровень подготовки.</p>
+            <p><strong>Финансирование:</strong> Грант GKS покрывает 100% обучения, авиаперелёт и ежемесячную стипендию.</p>
+          </div>
+        </div>
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇵🇱</span>
+            University of Warsaw
+            <span class="uni-country">Польша</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>University of Warsaw (Польша)</h3>
+            <p>Крупнейший и самый престижный вуз Польши. Отличный старт для карьеры в Европе.</p>
+            <p><strong>Преимущества:</strong> Доступная стоимость. Студенческая виза и ВНЖ. Свободное перемещение по Шенгену.</p>
+          </div>
+        </div>
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇭🇺</span>
+            University of Debrecen
+            <span class="uni-country">Венгрия</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>University of Debrecen (Венгрия)</h3>
+            <p>Один из старейших университетов Венгрии с сильной медицинской и инженерной базой.</p>
+            <p><strong>Финансирование:</strong> Stipendium Hungaricum — 100% обучения, бесплатное общежитие и ежемесячная стипендия.</p>
+          </div>
+        </div>
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇺🇸</span>
+            New York University
+            <span class="uni-country">США</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>New York University (США)</h3>
+            <p>Обучение в сердце Манхэттена. Невероятный нетворкинг и стажировки.</p>
+            <p><strong>Преимущества:</strong> Скидки до 50% (Merit-based scholarships). Полное визовое сопровождение.</p>
+          </div>
+        </div>
+
+        <div class="uni-card" tabindex="0">
+          <div class="uni-card__inner">
+            <span class="uni-flag">🇯🇵</span>
+            University of Tokyo
+            <span class="uni-country">Япония</span>
+            <span class="click-hint">Нажмите для деталей</span>
+          </div>
+          <div class="uni-details" hidden>
+            <h3>University of Tokyo (Япония)</h3>
+            <p>Лучший университет Японии. Передовые исследовательские центры.</p>
+            <p><strong>Финансирование:</strong> Грант Министерства образования Японии (MEXT) покрывает всё обучение и даёт стипендию.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:2rem;color:#666">И ещё более 100 топовых университетов с возможностью получить грант до 100%.</p>
+  </section>
+
+  <!-- Посты / Новости -->
+  <section id="posts" class="section container">
+    <h2 class="section-title reveal">Актуальные предложения и новости</h2>
+    <div class="filters reveal">
       <div class="filters__categories" id="categories">
         <button type="button" class="pill pill--active" data-category="all">Все</button>
         <button type="button" class="pill" data-category="новости">Новости</button>
@@ -53,33 +262,77 @@
     </div>
     <div class="posts-grid" id="postsGrid" aria-live="polite"></div>
     <p class="empty" id="empty" hidden>Ничего не найдено. Попробуй другой запрос.</p>
-  </main>
-
-  <section class="cta">
-    <div class="container cta__content">
-      <h2 class="cta__title">Не пропускай новые посты</h2>
-      <p class="cta__text">Подпишись на Telegram-канал и получай актуальную информацию первым</p>
-      <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--white">Открыть Telegram</a>
+    <div style="text-align:center;margin-top:3rem">
+      <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--gold reveal">Все новости в Telegram-канале</a>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <a href="#" class="footer__logo">Global Study</a>
-      <nav class="footer__nav" aria-label="Разделы сайта">
-        <a href="#posts" data-category="новости">Новости</a>
-        <a href="#posts" data-category="образование">Образование</a>
-        <a href="#posts" data-category="возможности">Возможности</a>
-        <a href="#posts" data-category="ресурсы">Ресурсы</a>
-      </nav>
-      <div class="footer__contacts">
-        <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener">Telegram</a>
-        <a href="mailto:globalgo@gmail.com">globalgo@gmail.com</a>
+  <!-- Истории успеха -->
+  <section class="section container split-section">
+    <img src="assets/student_success_1777027045477.png" alt="Истории успеха студентов" class="split-img reveal" style="order:-1">
+    <div class="split-content reveal">
+      <h2>Истории успеха</h2>
+      <p>Более 3 000 наших студентов уже учатся в престижных университетах мира, строят международную карьеру и расширяют свои горизонты.</p>
+      <p>Присоединяйтесь к сообществу Global Study и сделайте первый шаг к своему успешному будущему.</p>
+      <a href="#contact" class="btn btn--gold" style="margin-top:2rem">Начать путь</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-section__content reveal">
+      <h2>Не пропускай новые посты</h2>
+      <p>Подпишись на Telegram-канал и получай актуальную информацию первым</p>
+      <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--light">Открыть Telegram</a>
+    </div>
+  </section>
+
+  <!-- Подвал -->
+  <footer id="contact" class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <div class="footer__logo">Global Study</div>
+        <p>Ваш надёжный партнёр в сфере международного образования.</p>
+        <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--gold" style="margin-top:1.5rem">Написать в Telegram</a>
       </div>
-      <p class="footer__copy">© 2025 Global Study. Все права защищены.</p>
+      <div class="footer__links">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#posts" data-category="all">Главная</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#universities">Университеты</a></li>
+          <li><a href="#posts" data-category="новости">Новости</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <h4>Контакты</h4>
+        <ul>
+          <li>📞 <a href="tel:+998880211122">+998 88 021 11 22</a></li>
+          <li>📧 <a href="mailto:globalgo@gmail.com">globalgo@gmail.com</a></li>
+          <li><a href="https://t.me/Globalstudyy" target="_blank" rel="noopener">@Globalstudyy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Global Study. Все права защищены.</p>
     </div>
   </footer>
 
+  <!-- Модал университета -->
+  <div id="uniModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+      <button type="button" class="modal-close" id="closeModal" aria-label="Закрыть">×</button>
+      <div id="modalBody"></div>
+      <div style="text-align:center;margin-top:2rem">
+        <a href="https://t.me/Globalstudyy" target="_blank" rel="noopener" class="btn btn--gold">Получить консультацию</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Скрипты -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
