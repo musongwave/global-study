@@ -11,7 +11,7 @@ export function Pill({ active, className, ...props }: PillProps) {
         'px-4 py-1.5 rounded-full text-sm font-medium transition-all',
         active
           ? 'bg-gold text-black'
-          : 'border border-white/20 text-white/60 hover:border-gold/50 hover:text-white',
+          : 'border border-gray-300 dark:border-white/20 text-gray-500 dark:text-white/60 hover:border-gold/50 hover:text-gray-900 dark:hover:text-white',
         className
       )}
       {...props}

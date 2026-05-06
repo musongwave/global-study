@@ -33,16 +33,16 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
             if (e.target === e.currentTarget) onClose()
           }}
         >
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/50 dark:bg-black/80 backdrop-blur-sm" />
           <motion.div
-            className="relative z-10 max-w-lg w-full bg-zinc-900 border border-white/10 rounded-2xl p-6 max-h-[90vh] overflow-y-auto"
+            className="relative z-10 max-w-lg w-full bg-white dark:bg-zinc-900 border border-gray-200 dark:border-white/10 rounded-2xl p-6 max-h-[90vh] overflow-y-auto"
             initial={{ scale: 0.95, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-white/40 hover:text-white text-2xl leading-none"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 dark:text-white/60 dark:hover:text-white text-2xl leading-none"
               aria-label="Закрыть"
             >
               ×

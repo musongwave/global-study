@@ -20,10 +20,10 @@ const SERVICES = [
 
 export function Services() {
   return (
-    <section id="services" className="py-24 bg-black">
+    <section id="services" className="py-24 bg-white dark:bg-black">
       <div className="container mx-auto px-6">
         <motion.h2
-          className="font-syne text-4xl font-bold text-white mb-12 text-center"
+          className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -34,7 +34,7 @@ export function Services() {
           {SERVICES.map((s, i) => (
             <motion.div
               key={s.title}
-              className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-gold/40 transition-all"
+              className="p-8 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40 transition-all"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -42,8 +42,8 @@ export function Services() {
               whileHover={{ y: -4 }}
             >
               <div className="text-4xl mb-6">{s.icon}</div>
-              <h3 className="font-syne text-xl font-bold text-white mb-3">{s.title}</h3>
-              <p className="text-white/60 text-sm leading-relaxed">{s.desc}</p>
+              <h3 className="font-syne text-xl font-bold text-gray-900 dark:text-white mb-3">{s.title}</h3>
+              <p className="text-gray-500 dark:text-white/60 text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>

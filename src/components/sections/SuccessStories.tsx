@@ -3,7 +3,7 @@ import { LinkButton } from '../ui/Button'
 
 export function SuccessStories() {
   return (
-    <section className="py-24 bg-black">
+    <section className="py-24 bg-white dark:bg-black">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <motion.img
           src={`${import.meta.env.BASE_URL}assets/student_success_1777027045477.png`}
@@ -18,12 +18,12 @@ export function SuccessStories() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="font-syne text-4xl font-bold text-white mb-6">Истории успеха</h2>
-          <p className="text-white/60 mb-4 leading-relaxed">
+          <h2 className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-6">Истории успеха</h2>
+          <p className="text-gray-500 dark:text-white/60 mb-4 leading-relaxed">
             Более 3 000 наших студентов уже учатся в престижных университетах мира, строят
             международную карьеру и расширяют свои горизонты.
           </p>
-          <p className="text-white/60 mb-8 leading-relaxed">
+          <p className="text-gray-500 dark:text-white/60 mb-8 leading-relaxed">
             Присоединяйтесь к сообществу Global Study и сделайте первый шаг к своему успешному
             будущему.
           </p>

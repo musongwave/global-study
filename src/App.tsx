@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Header } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
 import { MobileMenu } from './components/layout/MobileMenu'
@@ -21,6 +21,15 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedPost, setSelectedPost] = useState<Post | null>(null)
   const [selectedUni, setSelectedUni] = useState<University | null>(null)
+  const [isDark, setIsDark] = useState(true)
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDark])
 
   const handleCategorySelect = (cat: Category) => {
     setActiveCategory(cat)
@@ -35,6 +44,8 @@ export default function App() {
         onMenuToggle={() => setMobileMenuOpen(o => !o)}
         menuOpen={mobileMenuOpen}
         onCategorySelect={handleCategorySelect}
+        isDark={isDark}
+        onThemeToggle={() => setIsDark(d => !d)}
       />
       <MobileMenu
         isOpen={mobileMenuOpen}
@@ -62,13 +73,13 @@ export default function App() {
       <Modal isOpen={selectedUni !== null} onClose={() => setSelectedUni(null)}>
         {selectedUni && (
           <div>
-            <h2 className="font-syne text-2xl font-bold text-white mb-2">
+            <h2 className="font-syne text-2xl font-bold text-gray-900 dark:text-white mb-2">
               {selectedUni.flag} {selectedUni.name}
             </h2>
             <p className="text-gold text-sm mb-4">{selectedUni.country}</p>
-            <p className="text-white/70 mb-3">{selectedUni.description}</p>
-            <p className="text-white/70">
-              <strong className="text-white">Финансирование: </strong>
+            <p className="text-gray-500 dark:text-white/70 mb-3">{selectedUni.description}</p>
+            <p className="text-gray-500 dark:text-white/70">
+              <strong className="text-gray-900 dark:text-white">Финансирование: </strong>
               {selectedUni.funding}
             </p>
             <div className="mt-6 text-center">
@@ -97,10 +108,10 @@ export default function App() {
               {' · '}
               {selectedPost.category}
             </p>
-            <h2 className="font-syne text-2xl font-bold text-white mb-4">
+            <h2 className="font-syne text-2xl font-bold text-gray-900 dark:text-white mb-4">
               {selectedPost.title}
             </h2>
-            <div className="text-white/70 space-y-3 max-h-80 overflow-y-auto pr-2">
+            <div className="text-gray-500 dark:text-white/70 space-y-3 max-h-80 overflow-y-auto pr-2">
               {selectedPost.text
                 .split('\n')
                 .filter(l => l.trim())

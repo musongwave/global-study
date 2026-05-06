@@ -44,10 +44,10 @@ export function Posts({
   const posts = usePosts(activeCategory, searchQuery)
 
   return (
-    <section id="posts" className="py-24 bg-zinc-950">
+    <section id="posts" className="py-24 bg-gray-50 dark:bg-zinc-950">
       <div className="container mx-auto px-6">
         <motion.h2
-          className="font-syne text-4xl font-bold text-white mb-8 text-center"
+          className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -73,12 +73,12 @@ export function Posts({
             onChange={e => onSearchChange(e.target.value)}
             placeholder="Поиск по постам..."
             aria-label="Поиск по постам"
-            className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-gold/40"
+            className="flex-1 bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full px-4 py-2 text-gray-900 dark:text-white text-sm placeholder:text-gray-400 dark:placeholder:text-white/30 focus:outline-none focus:border-gold/40"
           />
         </div>
 
         {posts.length === 0 ? (
-          <p className="text-center text-white/40 py-16">
+          <p className="text-center text-gray-400 dark:text-white/40 py-16">
             Ничего не найдено. Попробуй другой запрос.
           </p>
         ) : (
@@ -91,9 +91,9 @@ export function Posts({
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden hover:border-gold/30 transition-all"
+                  className="rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 overflow-hidden hover:border-gold/30 transition-all"
                 >
-                  <div className="relative w-full h-48 bg-gradient-to-br from-zinc-800 to-zinc-900">
+                  <div className="relative w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-zinc-800 dark:to-zinc-900">
                     <img
                       src={post.image}
                       alt={post.title}
@@ -113,17 +113,17 @@ export function Posts({
                     </span>
                   </div>
                   <div className="p-5">
-                    <time className="text-white/40 text-xs">
+                    <time className="text-gray-400 dark:text-white/40 text-xs">
                       {new Date(post.date).toLocaleDateString('ru-RU', {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
                       })}
                     </time>
-                    <h3 className="font-syne font-bold text-white mt-1 mb-2 leading-tight">
+                    <h3 className="font-syne font-bold text-gray-900 dark:text-white mt-1 mb-2 leading-tight">
                       {post.title}
                     </h3>
-                    <p className="text-white/50 text-sm mb-4 line-clamp-2">{post.preview}</p>
+                    <p className="text-gray-500 dark:text-white/50 text-sm mb-4 line-clamp-2">{post.preview}</p>
                     <button
                       onClick={() => onSelectPost(post)}
                       className="text-gold text-sm font-medium border border-gold/40 px-4 py-1.5 rounded-full hover:bg-gold hover:text-black transition-all"

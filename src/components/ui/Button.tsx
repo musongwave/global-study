@@ -8,8 +8,8 @@ const base =
 const variants: Record<Variant, string> = {
   gold: 'bg-gold text-black hover:bg-gold-dark',
   'outline-gold': 'border border-gold text-gold hover:bg-gold hover:text-black',
-  light: 'bg-white text-black hover:bg-gray-100',
-  'outline-light': 'border border-white/80 text-white hover:bg-white hover:text-black',
+  light: 'bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-700 dark:hover:bg-gray-100',
+  'outline-light': 'border border-gray-300 dark:border-white/80 text-gray-900 dark:text-white hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black',
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

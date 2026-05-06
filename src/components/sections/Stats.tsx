@@ -35,7 +35,7 @@ function StatCounter({ value, suffix, label }: StatItem) {
   return (
     <motion.div
       ref={ref}
-      className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-gold/40 transition-colors cursor-default"
+      className="text-center p-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40 transition-colors cursor-default"
       whileHover={{ scale: 1.05 }}
       transition={{ type: 'spring', stiffness: 300 }}
     >
@@ -43,14 +43,14 @@ function StatCounter({ value, suffix, label }: StatItem) {
         <span ref={numRef}>0</span>
         {suffix}
       </div>
-      <div className="text-white/60 text-sm mt-2">{label}</div>
+      <div className="text-gray-500 dark:text-white/60 text-sm mt-2">{label}</div>
     </motion.div>
   )
 }
 
 export function Stats() {
   return (
-    <section className="py-16 bg-zinc-950">
+    <section className="py-16 bg-gray-50 dark:bg-zinc-950">
       <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4">
         {STATS.map(stat => (
           <StatCounter key={stat.label} {...stat} />
