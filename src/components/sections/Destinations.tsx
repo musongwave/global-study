@@ -26,7 +26,7 @@ export function Destinations() {
           </LinkButton>
         </motion.div>
         <motion.img
-          src="assets/university_campus_1777027031669.png"
+          src={`${import.meta.env.BASE_URL}assets/university_campus_1777027031669.png`}
           alt="Кампус университета"
           className="rounded-2xl object-cover w-full h-80"
           initial={{ opacity: 0, x: 30 }}

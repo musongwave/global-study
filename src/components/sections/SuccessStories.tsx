@@ -6,7 +6,7 @@ export function SuccessStories() {
     <section className="py-24 bg-black">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <motion.img
-          src="assets/student_success_1777027045477.png"
+          src={`${import.meta.env.BASE_URL}assets/student_success_1777027045477.png`}
           alt="Истории успеха студентов"
           className="rounded-2xl object-cover w-full h-80 order-last md:order-first"
           initial={{ opacity: 0, x: -30 }}

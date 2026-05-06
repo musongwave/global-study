@@ -19,6 +19,13 @@ const BADGE_COLORS: Record<string, string> = {
   ресурсы: 'bg-purple-500/20 text-purple-300',
 }
 
+const CATEGORY_ICONS: Record<string, string> = {
+  новости: '📰',
+  образование: '🎓',
+  возможности: '🌟',
+  ресурсы: '📚',
+}
+
 interface PostsProps {
   activeCategory: Category
   searchQuery: string
@@ -86,13 +93,17 @@ export function Posts({
                   exit={{ opacity: 0, scale: 0.95 }}
                   className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden hover:border-gold/30 transition-all"
                 >
-                  <div className="relative">
+                  <div className="relative w-full h-48 bg-gradient-to-br from-zinc-800 to-zinc-900">
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="w-full h-48 object-cover"
+                      className="w-full h-full object-cover"
                       loading="lazy"
+                      onError={(e) => { e.currentTarget.style.display = 'none' }}
                     />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="text-5xl opacity-20">{CATEGORY_ICONS[post.category] ?? '📖'}</span>
+                    </div>
                     <span
                       className={`absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium ${
                         BADGE_COLORS[post.category] ?? 'bg-white/10 text-white'
