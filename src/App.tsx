@@ -53,7 +53,7 @@ export default function App() {
         onCategorySelect={handleCategorySelect}
       />
       <main>
-        <Hero />
+        <Hero isDark={isDark} />
         <Stats />
         <Services />
         <Destinations />
