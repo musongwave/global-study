@@ -5,6 +5,7 @@ import { MobileMenu } from './components/layout/MobileMenu'
 import { Hero } from './components/sections/Hero'
 import { Stats } from './components/sections/Stats'
 import { Services } from './components/sections/Services'
+import { HowItWorks } from './components/sections/HowItWorks'
 import { Destinations } from './components/sections/Destinations'
 import { Universities } from './components/sections/Universities'
 import { Posts } from './components/sections/Posts'
@@ -57,6 +58,7 @@ export default function App() {
         <Hero isDark={isDark} />
         <Stats />
         <Services />
+        <HowItWorks />
         <Destinations />
         <Universities onSelectUni={setSelectedUni} />
         <Posts
