@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { usePosts } from '../../hooks/usePosts'
+import { usePosts, usePostCounts } from '../../hooks/usePosts'
 import { Pill } from '../ui/Pill'
 import { LinkButton } from '../ui/Button'
 import type { Category, Post } from '../../types/post'
@@ -42,6 +42,7 @@ export function Posts({
   onSelectPost,
 }: PostsProps) {
   const posts = usePosts(activeCategory, searchQuery)
+  const counts = usePostCounts(searchQuery)
 
   return (
     <section id="posts" className="py-24 bg-gray-50 dark:bg-zinc-950">
@@ -64,6 +65,9 @@ export function Posts({
                 onClick={() => onCategoryChange(cat.value)}
               >
                 {cat.label}
+                {counts[cat.value] !== undefined && (
+                  <span className="ml-1 opacity-60 text-xs">({counts[cat.value]})</span>
+                )}
               </Pill>
             ))}
           </div>
