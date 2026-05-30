@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePosts, usePostCounts } from '../../hooks/usePosts'
 import { Pill } from '../ui/Pill'
@@ -41,8 +42,14 @@ export function Posts({
   onSearchChange,
   onSelectPost,
 }: PostsProps) {
+  const [visibleCount, setVisibleCount] = useState(6)
   const posts = usePosts(activeCategory, searchQuery)
   const counts = usePostCounts(searchQuery)
+  const visiblePosts = posts.slice(0, visibleCount)
+
+  useEffect(() => {
+    setVisibleCount(6)
+  }, [activeCategory, searchQuery])
 
   return (
     <section id="posts" className="py-24 bg-gray-50 dark:bg-zinc-950">
@@ -88,7 +95,7 @@ export function Posts({
         ) : (
           <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" layout>
             <AnimatePresence mode="popLayout">
-              {posts.map(post => (
+              {visiblePosts.map(post => (
                 <motion.article
                   key={post.id}
                   layout
@@ -139,6 +146,17 @@ export function Posts({
               ))}
             </AnimatePresence>
           </motion.div>
+        )}
+
+        {visibleCount < posts.length && (
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => setVisibleCount(n => n + 6)}
+              className="px-6 py-2.5 rounded-full border border-gold/40 text-gold text-sm hover:bg-gold/10 transition-colors"
+            >
+              Показать ещё ({posts.length - visibleCount})
+            </button>
+          </div>
         )}
 
         <div className="text-center mt-12">
