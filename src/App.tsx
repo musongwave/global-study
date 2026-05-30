@@ -12,6 +12,7 @@ import { SuccessStories } from './components/sections/SuccessStories'
 import { CTA } from './components/sections/CTA'
 import { Modal } from './components/ui/Modal'
 import { LinkButton } from './components/ui/Button'
+import { ScrollToTop } from './components/ui/ScrollToTop'
 import type { Post, Category } from './types/post'
 import type { University } from './types/university'
 
@@ -69,6 +70,7 @@ export default function App() {
         <CTA />
       </main>
       <Footer onCategorySelect={handleCategorySelect} />
+      <ScrollToTop />
 
       <Modal isOpen={selectedUni !== null} onClose={() => setSelectedUni(null)}>
         {selectedUni && (
