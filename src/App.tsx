@@ -10,6 +10,7 @@ import { Destinations } from './components/sections/Destinations'
 import { Universities } from './components/sections/Universities'
 import { Posts } from './components/sections/Posts'
 import { SuccessStories } from './components/sections/SuccessStories'
+import { FAQ } from './components/sections/FAQ'
 import { CTA } from './components/sections/CTA'
 import { Modal } from './components/ui/Modal'
 import { LinkButton } from './components/ui/Button'
@@ -69,6 +70,7 @@ export default function App() {
           onSelectPost={setSelectedPost}
         />
         <SuccessStories />
+        <FAQ />
         <CTA />
       </main>
       <Footer onCategorySelect={handleCategorySelect} />
