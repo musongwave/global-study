@@ -12,12 +12,38 @@ interface HeaderProps {
 
 export function Header({ onMenuToggle, menuOpen, onCategorySelect, isDark, onThemeToggle }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  useEffect(() => {
+    const sections = ['hero', 'services', 'universities', 'posts']
+    const observers: IntersectionObserver[] = []
+
+    sections.forEach(id => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id) },
+        { threshold: 0.4 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    return () => observers.forEach(o => o.disconnect())
+  }, [])
+
+  const navCls = (id: string) =>
+    `transition-colors ${
+      activeSection === id
+        ? 'text-gold'
+        : 'text-gray-500 dark:text-white/70 hover:text-gray-900 dark:hover:text-white'
+    }`
 
   return (
     <header
@@ -29,26 +55,26 @@ export function Header({ onMenuToggle, menuOpen, onCategorySelect, isDark, onThe
         <a href="#" className="font-syne text-xl font-bold text-gray-900 dark:text-white">
           Global Study
         </a>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-gray-500 dark:text-white/70">
+        <nav className="hidden md:flex items-center gap-8 text-sm">
           <button
             onClick={() => onCategorySelect('all')}
-            className="hover:text-gray-900 dark:hover:text-white transition-colors"
+            className={navCls('hero')}
           >
             Главная
           </button>
-          <a href="#services" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+          <a href="#services" className={navCls('services')}>
             Услуги
           </a>
-          <a href="#universities" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+          <a href="#universities" className={navCls('universities')}>
             Университеты
           </a>
           <button
             onClick={() => onCategorySelect('новости')}
-            className="hover:text-gray-900 dark:hover:text-white transition-colors"
+            className={navCls('posts')}
           >
             Новости
           </button>
-          <a href="#contact" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+          <a href="#contact" className="text-gray-500 dark:text-white/70 hover:text-gray-900 dark:hover:text-white transition-colors">
             Контакты
           </a>
         </nav>

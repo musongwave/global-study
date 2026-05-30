@@ -43,7 +43,7 @@ export function Hero({ isDark }: HeroProps) {
   }, [isDark])
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
       <div ref={bgRef} className="absolute inset-0" />
       <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-b from-black/20 via-transparent to-black/60' : 'bg-gradient-to-b from-white/40 via-white/10 to-white/60'}`} />
       <div className="relative z-10 container mx-auto px-6 py-32 pt-40">
