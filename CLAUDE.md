@@ -2,93 +2,93 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Обзор проекта
 
-**Global Study** — single-page marketing site for an international education agency built around the Telegram channel [@Globalstudyy](https://t.me/Globalstudyy). Target audience: students aged 18–30 from CIS countries. **All UI text must be in Russian only — no English in the user interface.**
+**Global Study** — одностраничный маркетинговый сайт для агентства международного образования, основанного вокруг Telegram-канала [@Globalstudyy](https://t.me/Globalstudyy). Аудитория: студенты 18–30 лет из СНГ. **Весь UI строго на русском — никакого английского в интерфейсе.**
 
-Stack: Vite 5 + React 18 + TypeScript + Tailwind CSS 3 + Framer Motion 11 + Vanta.js (Three.js globe).
+Стек: Vite 5 + React 18 + TypeScript + Tailwind CSS 3 + Framer Motion 11 + Vanta.js (глобус на Three.js).
 
-## Commands
+## Команды
 
 ```bash
-bun install          # install dependencies (uses bun.lockb)
-bun run dev          # start Vite dev server
+bun install          # установить зависимости (используется bun.lockb)
+bun run dev          # запустить Vite dev-сервер
 bun run build        # tsc -b && vite build
-bun run preview      # preview production build locally
-bun run test         # run Vitest once
-bun run test:watch   # run Vitest in watch mode
+bun run preview      # локально просмотреть production-сборку
+bun run test         # запустить Vitest один раз
+bun run test:watch   # Vitest в режиме watch
 ```
 
-Tests live alongside source files (e.g. `src/hooks/usePosts.test.ts`). Run a single test file:
+Тесты лежат рядом с исходниками (например, `src/hooks/usePosts.test.ts`). Запустить один файл:
 ```bash
 bun run test src/hooks/usePosts.test.ts
 ```
 
-## Deployment
+## Деплой
 
 ### GitHub Pages (`musongwave.github.io/global-study/`)
 ```bash
-bun run build   # base = /global-study/ (default)
-# deployed automatically via GitHub Actions on push
+bun run build   # base = /global-study/ (по умолчанию)
+# деплой автоматически через GitHub Actions при пуше
 ```
 
 ### AWS CloudFront (`https://d35ugerun4abmu.cloudfront.net`)
 ```bash
 bash scripts/deploy-aws.sh
-# builds with VITE_BASE_PATH=/ then syncs dist/ to S3 + invalidates CloudFront
+# собирает с VITE_BASE_PATH=/, синкает dist/ в S3, инвалидирует CloudFront
 ```
 
-`VITE_BASE_PATH` controls the Vite `base` option in `vite.config.ts`. GitHub Pages needs `/global-study/`; AWS needs `/`. The deploy script sets this automatically.
+Переменная `VITE_BASE_PATH` управляет опцией `base` в `vite.config.ts`: GitHub Pages → `/global-study/` (умолчание), AWS → `/` (передаётся в скрипте).
 
-AWS resources: S3 `global-study-site-300272448240`, CloudFront `EKSIK23VB2V4N`, region `eu-north-1`.
+AWS ресурсы: S3 `global-study-site-300272448240`, CloudFront `EKSIK23VB2V4N`, регион `eu-north-1`.
 
-## Architecture
+## Архитектура
 
-### State Management
+### Управление состоянием
 
-All application state lives in `App.tsx` and is passed down as props — there is no router, no context, no external store:
+Всё состояние приложения хранится в `App.tsx` и передаётся вниз через пропсы — нет роутера, нет контекста, нет внешнего стора:
 
-| State | Purpose |
+| Состояние | Назначение |
 |---|---|
-| `isDark` | Light/dark theme toggle |
-| `mobileMenuOpen` | Mobile nav drawer |
-| `activeCategory` | Posts filter pill |
-| `searchQuery` | Posts search input |
-| `selectedPost` | Open post in modal |
-| `selectedUni` | Open university in modal |
+| `isDark` | Переключение светлой/тёмной темы |
+| `mobileMenuOpen` | Мобильный навигационный дроуэр |
+| `activeCategory` | Активная пилюля фильтра постов |
+| `searchQuery` | Строка поиска постов |
+| `selectedPost` | Открытый пост в модале |
+| `selectedUni` | Открытый университет в модале |
 
-`isDark` adds/removes the `dark` class on `document.documentElement` (Tailwind `darkMode: 'class'`).
+`isDark` добавляет/убирает класс `dark` на `document.documentElement` (Tailwind `darkMode: 'class'`).
 
-### Page Section Order
+### Порядок секций страницы
 
 `Header → Hero → Stats → Services → HowItWorks → Destinations → Universities → Posts → SuccessStories → FAQ → CTA → Footer`
 
-Navigation uses anchor links (`#hero`, `#services`, `#universities`, `#posts`, `#contact`). The `Header` uses `IntersectionObserver` to highlight the active section.
+Навигация — якорные ссылки (`#hero`, `#services`, `#universities`, `#posts`, `#contact`). `Header` использует `IntersectionObserver` для подсветки активной секции.
 
-### Data Flow
+### Поток данных
 
-- **Posts**: loaded from `data/posts.json` (root of repo, **not** inside `src/`). The `usePosts(category, query)` hook filters them with `useMemo`. `usePostCounts(query)` returns per-category counts for the filter pills. Both hooks are in `src/hooks/usePosts.ts`.
-- **Universities**: static array in `src/data/universities.ts`, displayed in a snap-scroll carousel.
-- **Modals**: `selectedPost` and `selectedUni` state in `App.tsx` control which modal is open. `Modal.tsx` uses Framer Motion `AnimatePresence` for enter/exit animations.
+- **Посты**: загружаются из `data/posts.json` (корень репозитория, **не** в `src/`). Хук `usePosts(category, query)` фильтрует их через `useMemo`. `usePostCounts(query)` возвращает количество постов по категориям для пилюль фильтра. Оба хука — в `src/hooks/usePosts.ts`.
+- **Университеты**: статический массив в `src/data/universities.ts`, отображается в карусели со snap-scroll.
+- **Модалы**: состояния `selectedPost` и `selectedUni` в `App.tsx` управляют открытым моделом. `Modal.tsx` использует Framer Motion `AnimatePresence` для анимаций входа/выхода.
 
-### Hero Globe
+### Глобус в Hero
 
-`Hero.tsx` initialises a Vanta.js GLOBE effect on mount and **destroys + re-creates it whenever `isDark` changes** to swap background/foreground colours. The globe canvas is attached to a `useRef` container div.
+`Hero.tsx` инициализирует эффект Vanta.js GLOBE при монтировании и **уничтожает + пересоздаёт его при каждом изменении `isDark`**, чтобы поменять цвета фона и переднего плана. Canvas глобуса привязан к div-контейнеру через `useRef`.
 
-### UI Conventions
+### UI-соглашения
 
-- **`src/lib/cn.ts`** — always use this `cn()` utility (wraps `clsx` + `tailwind-merge`) for conditional class composition.
-- **`Button.tsx`** — use the `Button` or `LinkButton` components with variants: `gold`, `outline-gold`, `light`, `outline-light`.
-- **`Pill.tsx`** — category filter chips used in `Posts.tsx`.
-- Post card images are Unsplash CDN URLs (`?w=800&h=400&fit=crop&auto=format`). On load error, components render a gradient + category emoji fallback.
+- **`src/lib/cn.ts`** — всегда использовать утилиту `cn()` (обёртка `clsx` + `tailwind-merge`) для условной композиции классов.
+- **`Button.tsx`** — использовать компоненты `Button` или `LinkButton` с вариантами: `gold`, `outline-gold`, `light`, `outline-light`.
+- **`Pill.tsx`** — чипы фильтра по категориям, используются в `Posts.tsx`.
+- Изображения карточек постов — Unsplash CDN (`?w=800&h=400&fit=crop&auto=format`). При ошибке загрузки отображается градиент + emoji-иконка категории.
 
-### Theme
+### Тема
 
-Dark mode classes use the `dark:` Tailwind prefix throughout. Custom design tokens in `tailwind.config.js`:
-- Gold: `#d4af37` (light) / `#b8962c` (dark)
-- Fonts: Syne (headings, weight 700–800), Inter (body, weight 300–600) — loaded via Google Fonts in `index.html`
+Тёмный режим использует префикс `dark:` Tailwind везде. Кастомные токены в `tailwind.config.js`:
+- Золотой: `#d4af37` (светлая) / `#b8962c` (тёмная)
+- Шрифты: Syne (заголовки, 700–800), Inter (текст, 300–600) — загружаются через Google Fonts в `index.html`
 
-## Post Schema (`data/posts.json`)
+## Схема поста (`data/posts.json`)
 
 ```json
 {
@@ -104,21 +104,21 @@ Dark mode classes use the `dark:` Tailwind prefix throughout. Custom design toke
 }
 ```
 
-Valid categories: `образование`, `новости`, `возможности`, `ресурсы`
+Допустимые категории: `образование`, `новости`, `возможности`, `ресурсы`
 
-Posts are sorted newest-first. Max 50 posts are kept by the sync script.
+Посты отсортированы от новых к старым. Скрипт синхронизации хранит максимум 50 постов.
 
-## Content Sync
+## Синхронизация контента
 
-`scripts/sync_posts.py` (triggered manually via GitHub Actions `sync.yml`):
-1. Scrapes `t.me/s/Globalstudyy`
-2. Sends raw posts to Claude Haiku (`claude-haiku-4-5`) for categorisation, title, preview, and tag generation
-3. Prepends new posts to `data/posts.json` (max 50 total)
-4. Commits and pushes
+`scripts/sync_posts.py` (запускается вручную через GitHub Actions `sync.yml`):
+1. Скрапит `t.me/s/Globalstudyy`
+2. Отправляет сырые посты в Claude Haiku (`claude-haiku-4-5`) для категоризации, генерации заголовка, превью и тегов
+3. Добавляет новые посты в начало `data/posts.json` (максимум 50 всего)
+4. Делает commit и push
 
-Run locally:
+Запуск локально:
 ```bash
 ANTHROPIC_API_KEY=sk-... python3 scripts/sync_posts.py
 ```
 
-To add a post manually: prepend an entry to `data/posts.json`, commit, and push. GitHub Pages updates in ~1 min; AWS requires running `bash scripts/deploy-aws.sh`.
+Добавить пост вручную: добавить объект в начало массива в `data/posts.json`, закоммитить и запушить. GitHub Pages обновится за ~1 мин; AWS требует запуска `bash scripts/deploy-aws.sh`.
