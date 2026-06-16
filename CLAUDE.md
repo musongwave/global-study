@@ -4,127 +4,121 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Global Study** — одностраничный маркетинговый сайт агентства международного образования, основанного на Telegram-канале [@Globalstudyy](https://t.me/Globalstudyy). Аудитория: студенты 18–30 лет из СНГ. Весь интерфейс строго на русском языке.
+**Global Study** — single-page marketing site for an international education agency built around the Telegram channel [@Globalstudyy](https://t.me/Globalstudyy). Target audience: students aged 18–30 from CIS countries. **All UI text must be in Russian only — no English in the user interface.**
 
-## Key Constraints
+Stack: Vite 5 + React 18 + TypeScript + Tailwind CSS 3 + Framer Motion 11 + Vanta.js (Three.js globe).
 
-- **Язык UI**: только русский — никакого английского в пользовательском интерфейсе
-- **Стек**: Vite + React 18 + TypeScript + Tailwind CSS + Framer Motion
-- **Mobile-first**: адаптивность обязательна
-- **Хостинг**: два параллельных деплоя — GitHub Pages и AWS CloudFront
-
-## Локальный запуск
+## Commands
 
 ```bash
-bun install
-bun run dev
+bun install          # install dependencies (uses bun.lockb)
+bun run dev          # start Vite dev server
+bun run build        # tsc -b && vite build
+bun run preview      # preview production build locally
+bun run test         # run Vitest once
+bun run test:watch   # run Vitest in watch mode
 ```
 
-## Сборка и деплой
+Tests live alongside source files (e.g. `src/hooks/usePosts.test.ts`). Run a single test file:
+```bash
+bun run test src/hooks/usePosts.test.ts
+```
+
+## Deployment
 
 ### GitHub Pages (`musongwave.github.io/global-study/`)
-
 ```bash
-bun run build   # base = /global-study/ (по умолчанию)
-# деплой через GitHub Actions
+bun run build   # base = /global-study/ (default)
+# deployed automatically via GitHub Actions on push
 ```
 
 ### AWS CloudFront (`https://d35ugerun4abmu.cloudfront.net`)
-
 ```bash
 bash scripts/deploy-aws.sh
-# строит с VITE_BASE_PATH=/ и синкает dist/ в S3
+# builds with VITE_BASE_PATH=/ then syncs dist/ to S3 + invalidates CloudFront
 ```
 
-AWS ресурсы: S3 bucket `global-study-site-300272448240`, CloudFront distribution `EKSIK23VB2V4N`, регион `eu-north-1`.
+`VITE_BASE_PATH` controls the Vite `base` option in `vite.config.ts`. GitHub Pages needs `/global-study/`; AWS needs `/`. The deploy script sets this automatically.
 
-Переменная `VITE_BASE_PATH` управляет base URL в `vite.config.ts`:
-- GitHub Pages → `/global-study/` (умолчание)
-- AWS → `/` (передаётся в скрипте деплоя)
+AWS resources: S3 `global-study-site-300272448240`, CloudFront `EKSIK23VB2V4N`, region `eu-north-1`.
 
-## Архитектура
+## Architecture
 
-### Структура `src/`
+### State Management
 
-```
-src/
-  App.tsx                  — корневой компонент, состояние темы
-  components/
-    layout/
-      Header.tsx           — навигация, переключатель темы, мобильное меню
-      Footer.tsx
-      MobileMenu.tsx
-    sections/
-      Hero.tsx             — Vanta.js 3D-глобус (адаптирован под тему)
-      Stats.tsx            — анимированные счётчики
-      Services.tsx
-      Destinations.tsx
-      Universities.tsx     — карусель + модал
-      Posts.tsx            — фильтрация по категориям + поиск + модал
-      SuccessStories.tsx
-      CTA.tsx
-    ui/
-      Button.tsx
-      Modal.tsx
-      Pill.tsx
-  hooks/
-    usePosts.ts            — фильтрация постов
-  types/
-    post.ts
-    university.ts
-  data/
-    universities.ts
-```
+All application state lives in `App.tsx` and is passed down as props — there is no router, no context, no external store:
 
-Данные постов: `data/posts.json` (в корне проекта, не в `src/`).
-Статические изображения: `public/assets/` (копируются в `dist/assets/` при сборке).
+| State | Purpose |
+|---|---|
+| `isDark` | Light/dark theme toggle |
+| `mobileMenuOpen` | Mobile nav drawer |
+| `activeCategory` | Posts filter pill |
+| `searchQuery` | Posts search input |
+| `selectedPost` | Open post in modal |
+| `selectedUni` | Open university in modal |
 
-### Секции страницы (сверху вниз)
+`isDark` adds/removes the `dark` class on `document.documentElement` (Tailwind `darkMode: 'class'`).
 
-Header → Hero (Vanta globe) → Stats → Services → Destinations → Universities → Posts → SuccessStories → CTA → Footer
+### Page Section Order
 
-### Тема (светлая/тёмная)
+`Header → Hero → Stats → Services → HowItWorks → Destinations → Universities → Posts → SuccessStories → FAQ → CTA → Footer`
 
-Tailwind `darkMode: 'class'` — класс `dark` добавляется на `document.documentElement`.
-Переключатель в `Header.tsx`, состояние `isDark` в `App.tsx`.
-`Hero.tsx` пересоздаёт Vanta-эффект при смене темы (разные `backgroundColor` и `color2`).
+Navigation uses anchor links (`#hero`, `#services`, `#universities`, `#posts`, `#contact`). The `Header` uses `IntersectionObserver` to highlight the active section.
 
-### Схема поста в `posts.json`
+### Data Flow
+
+- **Posts**: loaded from `data/posts.json` (root of repo, **not** inside `src/`). The `usePosts(category, query)` hook filters them with `useMemo`. `usePostCounts(query)` returns per-category counts for the filter pills. Both hooks are in `src/hooks/usePosts.ts`.
+- **Universities**: static array in `src/data/universities.ts`, displayed in a snap-scroll carousel.
+- **Modals**: `selectedPost` and `selectedUni` state in `App.tsx` control which modal is open. `Modal.tsx` uses Framer Motion `AnimatePresence` for enter/exit animations.
+
+### Hero Globe
+
+`Hero.tsx` initialises a Vanta.js GLOBE effect on mount and **destroys + re-creates it whenever `isDark` changes** to swap background/foreground colours. The globe canvas is attached to a `useRef` container div.
+
+### UI Conventions
+
+- **`src/lib/cn.ts`** — always use this `cn()` utility (wraps `clsx` + `tailwind-merge`) for conditional class composition.
+- **`Button.tsx`** — use the `Button` or `LinkButton` components with variants: `gold`, `outline-gold`, `light`, `outline-light`.
+- **`Pill.tsx`** — category filter chips used in `Posts.tsx`.
+- Post card images are Unsplash CDN URLs (`?w=800&h=400&fit=crop&auto=format`). On load error, components render a gradient + category emoji fallback.
+
+### Theme
+
+Dark mode classes use the `dark:` Tailwind prefix throughout. Custom design tokens in `tailwind.config.js`:
+- Gold: `#d4af37` (light) / `#b8962c` (dark)
+- Fonts: Syne (headings, weight 700–800), Inter (body, weight 300–600) — loaded via Google Fonts in `index.html`
+
+## Post Schema (`data/posts.json`)
 
 ```json
 {
   "id": 42,
   "date": "2025-04-20",
   "category": "возможности",
-  "title": "Заголовок на русском (40-80 символов)",
-  "preview": "Краткое описание (150-250 символов)",
+  "title": "Заголовок (40–80 символов)",
+  "preview": "Краткое описание (150–250 символов)",
   "text": "Полный текст поста",
-  "image": "https://images.unsplash.com/photo-...",
+  "image": "https://images.unsplash.com/photo-{ID}?w=800&h=400&fit=crop&auto=format",
   "tags": ["стипендия", "европа"],
   "tg_link": "https://t.me/Globalstudyy/42"
 }
 ```
 
-**Допустимые категории:** `образование`, `новости`, `возможности`, `ресурсы`
+Valid categories: `образование`, `новости`, `возможности`, `ресурсы`
 
-Изображения постов — Unsplash CDN (`https://images.unsplash.com/photo-{ID}?w=800&h=400&fit=crop&auto=format`). При ошибке загрузки показывается градиент + emoji-иконка категории.
+Posts are sorted newest-first. Max 50 posts are kept by the sync script.
 
-## Синхронизация контента
+## Content Sync
 
-`scripts/sync_posts.py` — запускается через GitHub Actions (`sync.yml`, только вручную):
+`scripts/sync_posts.py` (triggered manually via GitHub Actions `sync.yml`):
+1. Scrapes `t.me/s/Globalstudyy`
+2. Sends raw posts to Claude Haiku (`claude-haiku-4-5`) for categorisation, title, preview, and tag generation
+3. Prepends new posts to `data/posts.json` (max 50 total)
+4. Commits and pushes
 
-1. Скрапит `t.me/s/Globalstudyy`
-2. Передаёт посты в Claude Haiku API (`claude-haiku-4-5`)
-3. Обновляет `data/posts.json` (максимум 50 постов, новые — в начале)
-4. Делает `git commit + push`
-
-Запуск локально:
+Run locally:
 ```bash
 ANTHROPIC_API_KEY=sk-... python3 scripts/sync_posts.py
 ```
 
-## Добавление поста вручную
-
-1. Добавить объект в начало массива в `data/posts.json`
-2. `git add data/posts.json && git commit -m "content: добавить пост" && git push`
-3. GitHub Pages обновится за ~1 минуту; AWS — запустить `bash scripts/deploy-aws.sh`
+To add a post manually: prepend an entry to `data/posts.json`, commit, and push. GitHub Pages updates in ~1 min; AWS requires running `bash scripts/deploy-aws.sh`.
