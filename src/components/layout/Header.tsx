@@ -103,7 +103,7 @@ export function Header({ onMenuToggle, menuOpen, onCategorySelect, isDark, onThe
             )}
           </button>
           <LinkButton
-            href="https://t.me/Globalstudyy"
+            href="https://t.me/globalstudyuzz"
             target="_blank"
             rel="noopener"
             variant="gold"

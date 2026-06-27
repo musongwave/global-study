@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Global Study** — одностраничный маркетинговый сайт агентства международного образования, основанного на Telegram-канале [@Globalstudyy](https://t.me/Globalstudyy). Аудитория: студенты 18–30 лет из СНГ. Весь интерфейс строго на русском языке.
+**Global Study** — одностраничный маркетинговый сайт агентства международного образования, основанного на Telegram-канале [@globalstudyuzz](https://t.me/globalstudyuzz). Аудитория: студенты 18–30 лет из СНГ. Весь интерфейс строго на русском языке.
 
 ## Key Constraints
 
@@ -101,7 +101,7 @@ Tailwind `darkMode: 'class'` — класс `dark` добавляется на `
   "text": "Полный текст поста",
   "image": "https://images.unsplash.com/photo-...",
   "tags": ["стипендия", "европа"],
-  "tg_link": "https://t.me/Globalstudyy/42"
+  "tg_link": "https://t.me/globalstudyuzz/42"
 }
 ```
 
@@ -113,7 +113,7 @@ Tailwind `darkMode: 'class'` — класс `dark` добавляется на `
 
 `scripts/sync_posts.py` — запускается через GitHub Actions (`sync.yml`, только вручную):
 
-1. Скрапит `t.me/s/Globalstudyy`
+1. Скрапит `t.me/s/globalstudyuzz`
 2. Передаёт посты в Claude Haiku API (`claude-haiku-4-5`)
 3. Обновляет `data/posts.json` (максимум 50 постов, новые — в начале)
 4. Делает `git commit + push`

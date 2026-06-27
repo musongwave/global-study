@@ -161,7 +161,7 @@ export function Posts({
 
         <div className="text-center mt-12">
           <LinkButton
-            href="https://t.me/Globalstudyy"
+            href="https://t.me/globalstudyuzz"
             target="_blank"
             rel="noopener"
             variant="gold"

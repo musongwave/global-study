@@ -15,7 +15,7 @@ export function Footer({ onCategorySelect }: FooterProps) {
             Ваш надёжный партнёр в сфере международного образования.
           </p>
           <LinkButton
-            href="https://t.me/Globalstudyy"
+            href="https://t.me/globalstudyuzz"
             target="_blank"
             rel="noopener"
             variant="gold"
@@ -72,12 +72,12 @@ export function Footer({ onCategorySelect }: FooterProps) {
             </li>
             <li>
               <a
-                href="https://t.me/Globalstudyy"
+                href="https://t.me/globalstudyuzz"
                 target="_blank"
                 rel="noopener"
                 className="hover:text-gray-900 dark:hover:text-white transition-colors"
               >
-                @Globalstudyy
+                @globalstudyuzz
               </a>
             </li>
           </ul>

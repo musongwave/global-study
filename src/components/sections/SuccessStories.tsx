@@ -99,7 +99,7 @@ export function SuccessStories() {
         </div>
 
         <div className="text-center">
-          <LinkButton href="https://t.me/Globalstudyy" target="_blank" rel="noopener noreferrer" variant="gold">
+          <LinkButton href="https://t.me/globalstudyuzz" target="_blank" rel="noopener noreferrer" variant="gold">
             Начать свой путь
           </LinkButton>
         </div>

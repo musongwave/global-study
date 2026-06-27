@@ -90,7 +90,7 @@ export default function App() {
             </p>
             <div className="mt-6 text-center">
               <LinkButton
-                href="https://t.me/Globalstudyy"
+                href="https://t.me/globalstudyuzz"
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="gold"

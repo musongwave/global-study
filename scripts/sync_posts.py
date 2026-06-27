@@ -1,5 +1,5 @@
 """
-Синхронизация постов из Telegram-канала @Globalstudyy.
+Синхронизация постов из Telegram-канала @globalstudyuzz.
 
 Парсит публичный веб-интерфейс канала, переводит на русский через Claude API,
 обновляет data/posts.json и пушит изменения на GitHub Pages.
@@ -16,7 +16,7 @@ from html import unescape
 
 import anthropic
 
-CHANNEL = "Globalstudyy"
+CHANNEL = "globalstudyuzz"
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POSTS_FILE = os.path.join(REPO_ROOT, "data", "posts.json")
 MAX_FETCH = 30   # постов со страницы канала

@@ -17,7 +17,7 @@ export function CTA() {
             Подпишись на Telegram-канал и получай актуальную информацию первым
           </p>
           <LinkButton
-            href="https://t.me/Globalstudyy"
+            href="https://t.me/globalstudyuzz"
             target="_blank"
             rel="noopener"
             variant="light"
