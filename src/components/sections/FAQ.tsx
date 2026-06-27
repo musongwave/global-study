@@ -71,12 +71,14 @@ export function FAQ() {
               transition={{ delay: i * 0.05 }}
             >
               <button
-                className="w-full flex items-center justify-between px-5 py-4 text-left text-gray-900 dark:text-white font-medium text-sm hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                className="w-full flex items-center justify-between px-5 py-4 text-left text-gray-900 dark:text-white font-medium text-sm hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 aria-expanded={openIndex === i}
+                aria-controls={`faq-answer-${i}`}
               >
                 <span>{faq.q}</span>
                 <svg
+                  aria-hidden="true"
                   width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                   className={`flex-shrink-0 ml-4 transition-transform duration-200 ${openIndex === i ? 'rotate-180' : ''}`}
                 >
@@ -86,6 +88,8 @@ export function FAQ() {
               <AnimatePresence initial={false}>
                 {openIndex === i && (
                   <motion.div
+                    id={`faq-answer-${i}`}
+                    role="region"
                     initial={{ height: 0 }}
                     animate={{ height: 'auto' }}
                     exit={{ height: 0 }}

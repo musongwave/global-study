@@ -22,6 +22,12 @@ function StatCounter({ value, suffix, label }: StatItem) {
   useEffect(() => {
     if (!isInView || !numRef.current) return
     const node = numRef.current
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      node.textContent = value.toLocaleString('ru-RU')
+      return
+    }
+
     const controls = animate(0, value, {
       duration: 1.5,
       ease: 'easeOut',

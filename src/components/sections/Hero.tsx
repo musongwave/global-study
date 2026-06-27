@@ -17,6 +17,8 @@ export function Hero({ isDark }: HeroProps) {
     effectRef.current?.destroy()
     effectRef.current = null
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     import('vanta/dist/vanta.globe.min').then(mod => {
       if (!mounted || !bgRef.current) return
       effectRef.current = mod.default({
