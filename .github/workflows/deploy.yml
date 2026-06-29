@@ -1,8 +1,6 @@
 name: Деплой на GitHub Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
