@@ -142,3 +142,18 @@ html.custom-cursor select {
     opacity: 0;
   }
 }
+
+/* ---------- Пружинный отклик кнопок ---------- */
+.btn-spring {
+  transition:
+    transform 0.3s cubic-bezier(0.2, 1.4, 0.4, 1),
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.3s;
+}
+@media (pointer: fine) {
+  .btn-spring:hover {
+    transform: scale(1.06);
+  }
+}
