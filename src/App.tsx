@@ -15,6 +15,8 @@ import { CTA } from './components/sections/CTA'
 import { Modal } from './components/ui/Modal'
 import { LinkButton } from './components/ui/Button'
 import { ScrollToTop } from './components/ui/ScrollToTop'
+import { CustomCursor } from './components/ui/CustomCursor'
+import { initLiquidGlass } from './lib/liquidGlass'
 import type { Post, Category } from './types/post'
 import type { University } from './types/university'
 
@@ -33,6 +35,8 @@ export default function App() {
       document.documentElement.classList.remove('dark')
     }
   }, [isDark])
+
+  useEffect(() => initLiquidGlass(), [])
 
   const handleCategorySelect = (cat: Category) => {
     setActiveCategory(cat)
@@ -56,7 +60,7 @@ export default function App() {
         onCategorySelect={handleCategorySelect}
       />
       <main>
-        <Hero isDark={isDark} />
+        <Hero />
         <Stats />
         <Services />
         <HowItWorks />
@@ -75,6 +79,7 @@ export default function App() {
       </main>
       <Footer onCategorySelect={handleCategorySelect} />
       <ScrollToTop />
+      <CustomCursor />
 
       <Modal isOpen={selectedUni !== null} onClose={() => setSelectedUni(null)}>
         {selectedUni && (
