@@ -72,7 +72,8 @@ liquid-glass-эффект (в духе iOS 26) на кнопках и плитк
 
 Эффект на плитках:
 
-- 3D-tilt за курсором: rotateX до ±14°, rotateY до ±16°, scale 1.05,
+- 3D-tilt за курсором: rotateX до ±7°, rotateY до ±8° (коэффициенты 14/16
+  на полный ход курсора от центра к краю — как в утверждённом мокапе), scale 1.05,
   `perspective: 900px` на контейнере; возврат с пружиной .6s.
 - Бегущий specular-блик: radial-gradient белого, следует за курсором,
   `mix-blend-mode: screen`, blur 4px, fade-in .35s.
