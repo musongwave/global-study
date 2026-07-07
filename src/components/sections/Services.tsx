@@ -64,12 +64,11 @@ export function Services() {
           {SERVICES.map((s, i) => (
             <motion.div
               key={s.title}
-              className="p-8 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40 transition-all"
+              className="liquid-glass p-8 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -4 }}
             >
               <div className="text-gold mb-6">
                 <s.Icon />

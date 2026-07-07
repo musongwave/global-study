@@ -102,7 +102,7 @@ export function Posts({
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 overflow-hidden hover:border-gold/30 transition-all"
+                  className="liquid-glass rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 overflow-hidden hover:border-gold/30"
                 >
                   <div className="relative w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-zinc-800 dark:to-zinc-900">
                     <img

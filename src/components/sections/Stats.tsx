@@ -41,9 +41,7 @@ function StatCounter({ value, suffix, label }: StatItem) {
   return (
     <motion.div
       ref={ref}
-      className="text-center p-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40 transition-colors cursor-default"
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: 'spring', stiffness: 300 }}
+      className="liquid-glass text-center p-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40 cursor-default"
     >
       <div className="font-syne text-4xl font-bold text-gold whitespace-nowrap">
         <span ref={numRef}>0</span>

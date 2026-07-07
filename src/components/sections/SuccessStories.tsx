@@ -78,7 +78,7 @@ export function SuccessStories() {
           {STORIES.map((s, i) => (
             <motion.div
               key={i}
-              className="bg-white dark:bg-zinc-900 rounded-2xl p-6 flex flex-col gap-4 border border-gray-100 dark:border-white/5 hover:border-gold/20 dark:hover:border-gold/20 transition-colors"
+              className="liquid-glass bg-white dark:bg-zinc-900 rounded-2xl p-6 flex flex-col gap-4 border border-gray-100 dark:border-white/5 hover:border-gold/20 dark:hover:border-gold/20"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

@@ -54,9 +54,7 @@ export function Universities({ onSelectUni }: UniversitiesProps) {
             <motion.button
               key={uni.name}
               onClick={() => onSelectUni(uni)}
-              className="flex-shrink-0 w-48 p-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-left hover:border-gold/40 transition-all snap-start"
-              whileHover={{ scale: 1.03, y: -4 }}
-              transition={{ type: 'spring', stiffness: 300 }}
+              className="liquid-glass flex-shrink-0 w-48 p-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-left hover:border-gold/40 snap-start"
             >
               <div className="text-3xl mb-3">{uni.flag}</div>
               <div className="text-gray-900 dark:text-white font-semibold text-sm leading-tight mb-1">{uni.name}</div>
