@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePosts, usePostCounts } from '../../hooks/usePosts'
 import { Pill } from '../ui/Pill'
 import { LinkButton } from '../ui/Button'
+import { SectionHeading } from '../ui/SectionHeading'
 import type { Category, Post } from '../../types/post'
 
 const CATEGORIES: { label: string; value: Category }[] = [
@@ -14,10 +15,10 @@ const CATEGORIES: { label: string; value: Category }[] = [
 ]
 
 const BADGE_COLORS: Record<string, string> = {
-  новости: 'bg-blue-500/20 text-blue-300',
-  образование: 'bg-green-500/20 text-green-300',
-  возможности: 'bg-gold/20 text-gold',
-  ресурсы: 'bg-purple-500/20 text-purple-300',
+  новости: 'bg-blue-950/60 text-blue-200',
+  образование: 'bg-emerald-950/60 text-emerald-200',
+  возможности: 'bg-[#3a2f10]/60 text-[#ffe9a8]',
+  ресурсы: 'bg-purple-950/60 text-purple-200',
 }
 
 const CATEGORY_ICONS: Record<string, string> = {
@@ -54,14 +55,11 @@ export function Posts({
   return (
     <section id="posts" className="py-24 bg-gray-50 dark:bg-zinc-950">
       <div className="container mx-auto px-6">
-        <motion.h2
-          className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Актуальные предложения и новости
-        </motion.h2>
+        <SectionHeading
+          kicker="Из Telegram-канала"
+          title="Актуальные предложения и новости"
+          className="mb-8"
+        />
 
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="flex flex-wrap gap-2">
@@ -103,27 +101,27 @@ export function Posts({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                 >
-                  <div className="liquid-glass h-full rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 overflow-hidden hover:border-gold/30">
+                  <div className="liquid-glass h-full flex flex-col rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 overflow-hidden hover:border-gold/30">
                     <div className="relative w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-zinc-800 dark:to-zinc-900">
+                      <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                        <span className="text-5xl opacity-20">{CATEGORY_ICONS[post.category] ?? '📖'}</span>
+                      </div>
                       <img
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-cover"
                         loading="lazy"
                         onError={(e) => { e.currentTarget.style.display = 'none' }}
                       />
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <span className="text-5xl opacity-20">{CATEGORY_ICONS[post.category] ?? '📖'}</span>
-                      </div>
                       <span
-                        className={`absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium ${
-                          BADGE_COLORS[post.category] ?? 'bg-white/10 text-white'
+                        className={`absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${
+                          BADGE_COLORS[post.category] ?? 'bg-black/50 text-white'
                         }`}
                       >
                         {post.category}
                       </span>
                     </div>
-                    <div className="p-5">
+                    <div className="p-5 flex flex-col flex-1">
                       <time className="text-gray-400 dark:text-white/40 text-xs">
                         {new Date(post.date).toLocaleDateString('ru-RU', {
                           day: 'numeric',
@@ -137,7 +135,7 @@ export function Posts({
                       <p className="text-gray-500 dark:text-white/50 text-sm mb-4 line-clamp-2">{post.preview}</p>
                       <button
                         onClick={() => onSelectPost(post)}
-                        className="text-gold text-sm font-medium border border-gold/40 px-4 py-1.5 rounded-full hover:bg-gold hover:text-black transition-all"
+                        className="mt-auto self-start text-gold text-sm font-medium border border-gold/40 px-4 py-1.5 rounded-full hover:bg-gold hover:text-black transition-all"
                       >
                         Подробно
                       </button>

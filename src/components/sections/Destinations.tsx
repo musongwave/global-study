@@ -10,7 +10,10 @@ export function Destinations() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-6">
+          <p className="text-gold text-xs font-semibold tracking-[0.22em] uppercase mb-3">
+            География
+          </p>
+          <h2 className="font-syne text-4xl font-bold tracking-tight text-balance text-gray-900 dark:text-white mb-6">
             Топовые направления
           </h2>
           <p className="text-gray-500 dark:text-white/60 mb-4 leading-relaxed">

@@ -43,7 +43,7 @@ function StatCounter({ value, suffix, label }: StatItem) {
       ref={ref}
       className="liquid-glass text-center p-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40 cursor-default"
     >
-      <div className="font-syne text-4xl font-bold text-gold whitespace-nowrap">
+      <div className="font-syne text-4xl md:text-5xl font-extrabold tracking-tight tabular-nums whitespace-nowrap bg-gradient-to-b from-[#c9a22e] to-[#8a6d1f] dark:from-[#ffe9a8] dark:to-gold bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
         <span ref={numRef}>0</span>
         {suffix}
       </div>

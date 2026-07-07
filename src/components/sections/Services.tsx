@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { SectionHeading } from '../ui/SectionHeading'
 
 function IconUniversity() {
   return (
@@ -52,14 +53,7 @@ export function Services() {
   return (
     <section id="services" className="py-24 bg-white dark:bg-black">
       <div className="container mx-auto px-6">
-        <motion.h2
-          className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Наши услуги
-        </motion.h2>
+        <SectionHeading kicker="Что мы делаем" title="Наши услуги" className="mb-12" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {SERVICES.map((s, i) => (
             <motion.div
@@ -70,7 +64,7 @@ export function Services() {
               transition={{ delay: i * 0.1 }}
             >
               <div className="liquid-glass h-full p-8 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40">
-                <div className="text-gold mb-6">
+                <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-6">
                   <s.Icon />
                 </div>
                 <h3 className="font-syne text-xl font-bold text-gray-900 dark:text-white mb-3">{s.title}</h3>

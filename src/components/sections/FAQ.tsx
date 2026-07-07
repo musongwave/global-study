@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { SectionHeading } from '../ui/SectionHeading'
 
 const FAQS = [
   {
@@ -42,23 +43,12 @@ export function FAQ() {
   return (
     <section className="py-24 bg-white dark:bg-black">
       <div className="container mx-auto px-6 max-w-3xl">
-        <motion.h2
-          className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Частые вопросы
-        </motion.h2>
-        <motion.p
-          className="text-gray-500 dark:text-white/60 text-center mb-12"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          Если не нашли ответ — напишите нам в Telegram
-        </motion.p>
+        <SectionHeading
+          kicker="Остались вопросы"
+          title="Частые вопросы"
+          subtitle="Если не нашли ответ — напишите нам в Telegram"
+          className="mb-12"
+        />
 
         <div className="space-y-3">
           {FAQS.map((faq, i) => (

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { SectionHeading } from '../ui/SectionHeading'
 
 function IconChat() {
   return (
@@ -48,23 +49,12 @@ export function HowItWorks() {
   return (
     <section className="py-24 bg-white dark:bg-black">
       <div className="container mx-auto px-6">
-        <motion.h2
-          className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Как мы работаем
-        </motion.h2>
-        <motion.p
-          className="text-gray-500 dark:text-white/60 text-center mb-16 max-w-xl mx-auto"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          Четыре шага от первого разговора до зачисления
-        </motion.p>
+        <SectionHeading
+          kicker="Процесс"
+          title="Как мы работаем"
+          subtitle="Четыре шага от первого разговора до зачисления"
+          className="mb-16"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
           <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gold/20" />

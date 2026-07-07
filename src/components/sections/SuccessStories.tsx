@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { LinkButton } from '../ui/Button'
+import { SectionHeading } from '../ui/SectionHeading'
 
 const STORIES = [
   {
@@ -8,7 +9,6 @@ const STORIES = [
     university: 'TU Berlin, Германия',
     quote: 'Global Study помогли мне с мотивационным письмом и языковыми требованиями. Получила оффер за 3 месяца!',
     initials: 'АМ',
-    color: 'bg-blue-500',
   },
   {
     name: 'Дмитрий К.',
@@ -16,7 +16,6 @@ const STORIES = [
     university: 'University of Warsaw, Польша',
     quote: 'Команда сопровождала меня на каждом шагу — от выбора программы до получения студенческой визы.',
     initials: 'ДК',
-    color: 'bg-emerald-500',
   },
   {
     name: 'Нилуфар Р.',
@@ -24,7 +23,6 @@ const STORIES = [
     university: 'Charles University, Чехия',
     quote: 'Даже не верила, что смогу поступить на грант. Global Study показали, что это реально.',
     initials: 'НР',
-    color: 'bg-gold',
   },
   {
     name: 'Сергей Л.',
@@ -32,7 +30,6 @@ const STORIES = [
     university: 'Corvinus University, Венгрия',
     quote: 'Грамотная помощь с документами и подготовка к интервью — всё прошло идеально.',
     initials: 'СЛ',
-    color: 'bg-purple-500',
   },
   {
     name: 'Мадина Т.',
@@ -40,7 +37,6 @@ const STORIES = [
     university: 'Masaryk University, Чехия',
     quote: 'Получила Erasmus+ стипендию. Без Global Study я бы не знала с чего начать.',
     initials: 'МТ',
-    color: 'bg-rose-500',
   },
   {
     name: 'Арман Б.',
@@ -48,7 +44,6 @@ const STORIES = [
     university: 'Vilnius University, Литва',
     quote: 'Всё организовано чётко: сроки, документы, визовый центр. Никакого стресса.',
     initials: 'АБ',
-    color: 'bg-amber-500',
   },
 ]
 
@@ -56,23 +51,12 @@ export function SuccessStories() {
   return (
     <section className="py-24 bg-gray-50 dark:bg-zinc-950">
       <div className="container mx-auto px-6">
-        <motion.h2
-          className="font-syne text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Истории успеха
-        </motion.h2>
-        <motion.p
-          className="text-gray-500 dark:text-white/60 text-center mb-16 max-w-xl mx-auto"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          Более 3 000 студентов из СНГ уже учатся в топовых университетах мира
-        </motion.p>
+        <SectionHeading
+          kicker="Отзывы студентов"
+          title="Истории успеха"
+          subtitle="Более 3 000 студентов из СНГ уже учатся в топовых университетах мира"
+          className="mb-16"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {STORIES.map((s, i) => (
@@ -85,7 +69,7 @@ export function SuccessStories() {
             >
               <div className="liquid-glass h-full bg-white dark:bg-zinc-900 rounded-2xl p-6 flex flex-col gap-4 border border-gray-100 dark:border-white/5 hover:border-gold/20 dark:hover:border-gold/20">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full ${s.color} flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#e8c65a] to-[#b8962c] flex items-center justify-center text-black font-bold text-sm flex-shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,.4)]">
                     {s.initials}
                   </div>
                   <div>
