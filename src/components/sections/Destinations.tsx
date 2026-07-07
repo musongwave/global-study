@@ -25,14 +25,19 @@ export function Destinations() {
             Получить консультацию
           </LinkButton>
         </motion.div>
-        <motion.img
-          src={`${import.meta.env.BASE_URL}assets/university_campus_1777027031669.png`}
-          alt="Кампус университета"
-          className="liquid-glass rounded-2xl object-cover w-full h-80"
+        <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-        />
+        >
+          <div className="liquid-glass rounded-2xl overflow-hidden">
+            <img
+              src={`${import.meta.env.BASE_URL}assets/university_campus_1777027031669.png`}
+              alt="Кампус университета"
+              className="object-cover w-full h-80 block"
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   )

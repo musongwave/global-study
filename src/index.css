@@ -47,8 +47,12 @@
   --lg-px: 50%;
   --lg-py: 50%;
   position: relative;
-  will-change: transform;
   transition: transform 0.6s cubic-bezier(0.2, 1.4, 0.4, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+@media (pointer: fine) {
+  .liquid-glass {
+    will-change: transform;
+  }
 }
 .liquid-glass.lg-active {
   transform: perspective(900px) rotateX(var(--lg-rx)) rotateY(var(--lg-ry)) scale(1.05);

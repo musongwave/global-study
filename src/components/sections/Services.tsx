@@ -64,17 +64,18 @@ export function Services() {
           {SERVICES.map((s, i) => (
             <motion.div
               key={s.title}
-              className="liquid-glass p-8 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
-              <div className="text-gold mb-6">
-                <s.Icon />
+              <div className="liquid-glass h-full p-8 rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-gold/40">
+                <div className="text-gold mb-6">
+                  <s.Icon />
+                </div>
+                <h3 className="font-syne text-xl font-bold text-gray-900 dark:text-white mb-3">{s.title}</h3>
+                <p className="text-gray-500 dark:text-white/60 text-sm leading-relaxed">{s.desc}</p>
               </div>
-              <h3 className="font-syne text-xl font-bold text-gray-900 dark:text-white mb-3">{s.title}</h3>
-              <p className="text-gray-500 dark:text-white/60 text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>

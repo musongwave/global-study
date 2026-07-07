@@ -102,45 +102,46 @@ export function Posts({
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="liquid-glass rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 overflow-hidden hover:border-gold/30"
                 >
-                  <div className="relative w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-zinc-800 dark:to-zinc-900">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      onError={(e) => { e.currentTarget.style.display = 'none' }}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="text-5xl opacity-20">{CATEGORY_ICONS[post.category] ?? '📖'}</span>
+                  <div className="liquid-glass h-full rounded-2xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 overflow-hidden hover:border-gold/30">
+                    <div className="relative w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-zinc-800 dark:to-zinc-900">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => { e.currentTarget.style.display = 'none' }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-5xl opacity-20">{CATEGORY_ICONS[post.category] ?? '📖'}</span>
+                      </div>
+                      <span
+                        className={`absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium ${
+                          BADGE_COLORS[post.category] ?? 'bg-white/10 text-white'
+                        }`}
+                      >
+                        {post.category}
+                      </span>
                     </div>
-                    <span
-                      className={`absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium ${
-                        BADGE_COLORS[post.category] ?? 'bg-white/10 text-white'
-                      }`}
-                    >
-                      {post.category}
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <time className="text-gray-400 dark:text-white/40 text-xs">
-                      {new Date(post.date).toLocaleDateString('ru-RU', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                      })}
-                    </time>
-                    <h3 className="font-syne font-bold text-gray-900 dark:text-white mt-1 mb-2 leading-tight">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-500 dark:text-white/50 text-sm mb-4 line-clamp-2">{post.preview}</p>
-                    <button
-                      onClick={() => onSelectPost(post)}
-                      className="text-gold text-sm font-medium border border-gold/40 px-4 py-1.5 rounded-full hover:bg-gold hover:text-black transition-all"
-                    >
-                      Подробно
-                    </button>
+                    <div className="p-5">
+                      <time className="text-gray-400 dark:text-white/40 text-xs">
+                        {new Date(post.date).toLocaleDateString('ru-RU', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric',
+                        })}
+                      </time>
+                      <h3 className="font-syne font-bold text-gray-900 dark:text-white mt-1 mb-2 leading-tight">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-500 dark:text-white/50 text-sm mb-4 line-clamp-2">{post.preview}</p>
+                      <button
+                        onClick={() => onSelectPost(post)}
+                        className="text-gold text-sm font-medium border border-gold/40 px-4 py-1.5 rounded-full hover:bg-gold hover:text-black transition-all"
+                      >
+                        Подробно
+                      </button>
+                    </div>
                   </div>
                 </motion.article>
               ))}
