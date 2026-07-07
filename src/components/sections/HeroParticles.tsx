@@ -48,6 +48,7 @@ export function HeroParticles() {
     const draw = (t: number) => {
       const w = canvas.width
       const h = canvas.height
+      if (!w || !h) return
       ctx.clearRect(0, 0, w, h)
 
       const glow = ctx.createRadialGradient(mx * w, my * h, 0, mx * w, my * h, h * 0.6)
