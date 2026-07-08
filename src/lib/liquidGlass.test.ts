@@ -49,25 +49,27 @@ describe('initLiquidGlass', () => {
     expect(tile.classList.contains('lg-active')).toBe(true)
   })
 
-  it('выставляет CSS-переменные наклона и блика при mousemove', () => {
+  it('выставляет наклон в transform и переменные блика при mousemove', () => {
     mockMatchMedia(true, false)
     cleanup = initLiquidGlass()
     tile.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
     tile.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientX: 150, clientY: 25 }))
     // px = 150/200 = 0.75 → ry = (0.75-0.5)*16 = 4deg; py = 25/100 = 0.25 → rx = (0.25-0.5)*-14 = 3.5deg
-    expect(tile.style.getPropertyValue('--lg-ry')).toBe('4.00deg')
-    expect(tile.style.getPropertyValue('--lg-rx')).toBe('3.50deg')
+    expect(tile.style.transform).toBe(
+      'perspective(900px) rotateX(3.50deg) rotateY(4.00deg) scale(1.05)',
+    )
     expect(tile.style.getPropertyValue('--lg-px')).toBe('75.0%')
     expect(tile.style.getPropertyValue('--lg-py')).toBe('25.0%')
   })
 
-  it('снимает lg-active и переменные при mouseout наружу', () => {
+  it('снимает lg-active, transform и переменные при mouseout наружу', () => {
     mockMatchMedia(true, false)
     cleanup = initLiquidGlass()
     tile.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
     tile.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, relatedTarget: document.body }))
     expect(tile.classList.contains('lg-active')).toBe(false)
-    expect(tile.style.getPropertyValue('--lg-rx')).toBe('')
+    expect(tile.style.transform).toBe('')
+    expect(tile.style.getPropertyValue('--lg-px')).toBe('')
   })
 
   it('не активируется при reduced motion', () => {

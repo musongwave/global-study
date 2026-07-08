@@ -19,7 +19,7 @@ export function initLiquidGlass(): () => void {
 
   const reset = (el: HTMLElement) => {
     el.classList.remove('lg-active')
-    for (const prop of ['--lg-rx', '--lg-ry', '--lg-px', '--lg-py']) {
+    for (const prop of ['transform', '--lg-px', '--lg-py']) {
       el.style.removeProperty(prop)
     }
   }
@@ -30,6 +30,7 @@ export function initLiquidGlass(): () => void {
     if (active) reset(active)
     active = el
     el.classList.add('lg-active')
+    el.style.transform = 'perspective(900px) scale(1.05)'
   }
 
   const onOut = (e: MouseEvent) => {
@@ -51,8 +52,11 @@ export function initLiquidGlass(): () => void {
       if (!r.width || !r.height) return
       const px = (clientX - r.left) / r.width
       const py = (clientY - r.top) / r.height
-      el.style.setProperty('--lg-rx', `${((py - 0.5) * -TILT_X_MAX).toFixed(2)}deg`)
-      el.style.setProperty('--lg-ry', `${((px - 0.5) * TILT_Y_MAX).toFixed(2)}deg`)
+      const rx = ((py - 0.5) * -TILT_X_MAX).toFixed(2)
+      const ry = ((px - 0.5) * TILT_Y_MAX).toFixed(2)
+      // transform напрямую — без пересчёта стилей поддерева через CSS-переменные;
+      // переменные остаются только для позиции блика ::after
+      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`
       el.style.setProperty('--lg-px', `${(px * 100).toFixed(1)}%`)
       el.style.setProperty('--lg-py', `${(py * 100).toFixed(1)}%`)
     })

@@ -6,7 +6,7 @@ const base =
   'inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold text-sm btn-spring cursor-pointer'
 
 const variants: Record<Variant, string> = {
-  gold: 'bg-gradient-to-b from-[#e8c65a] to-[#c9a22e] text-black shadow-[inset_0_1px_0_rgba(255,255,255,.5),0_8px_24px_-8px_rgba(212,175,55,.6)] hover:from-[#f0d06a] hover:to-[#d4af37]',
+  gold: 'btn-gold text-black shadow-[inset_0_1px_0_rgba(255,255,255,.5),0_8px_24px_-8px_rgba(212,175,55,.6)]',
   'outline-gold': 'border border-gold text-gold hover:bg-gold hover:text-black',
   light:
     'bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-700 dark:hover:bg-gray-100',

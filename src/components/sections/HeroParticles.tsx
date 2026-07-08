@@ -116,7 +116,21 @@ export function HeroParticles() {
       draw(t)
       raf = requestAnimationFrame(loop)
     }
-    raf = requestAnimationFrame(loop)
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(loop)
+    }
+    const stop = () => {
+      cancelAnimationFrame(raf)
+      raf = 0
+    }
+
+    // Пауза, когда hero вне вьюпорта — не жжём CPU при чтении нижних секций
+    const io =
+      typeof IntersectionObserver !== 'undefined'
+        ? new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()))
+        : null
+    if (io) io.observe(canvas)
+    else start()
 
     const onMouse = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect()
@@ -130,7 +144,8 @@ export function HeroParticles() {
     window.addEventListener('resize', onResize)
 
     return () => {
-      cancelAnimationFrame(raf)
+      stop()
+      io?.disconnect()
       parent?.removeEventListener('mousemove', onMouse)
       window.removeEventListener('resize', onResize)
     }

@@ -41,9 +41,9 @@
 }
 
 /* ---------- Liquid glass (iOS 26): наклон + бегущий блик ---------- */
+/* Наклон выставляется JS напрямую в inline transform (liquidGlass.ts);
+   CSS-переменные --lg-px/--lg-py — только позиция блика ::after */
 .liquid-glass {
-  --lg-rx: 0deg;
-  --lg-ry: 0deg;
   --lg-px: 50%;
   --lg-py: 50%;
   position: relative;
@@ -55,7 +55,6 @@
   }
 }
 .liquid-glass.lg-active {
-  transform: perspective(900px) rotateX(var(--lg-rx)) rotateY(var(--lg-ry)) scale(1.05);
   transition: transform 0.15s ease-out, box-shadow 0.4s ease, border-color 0.4s ease;
   box-shadow:
     0 30px 60px -18px rgba(0, 0, 0, 0.35),
@@ -110,30 +109,40 @@ html.custom-cursor select {
     0 0 10px 2px rgba(212, 175, 55, 0.9),
     0 0 24px 6px rgba(212, 175, 55, 0.4);
 }
+/* Кольцо: фиксированный бокс 38px, JS двигает только translate;
+   визуал на ::before — расширение через GPU-scale, не width/height */
 .cursor-ring {
   width: 38px;
   height: 38px;
+}
+.cursor-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   border: 1.5px solid rgba(212, 175, 55, 0.65);
   background: rgba(212, 175, 55, 0.05);
   transition:
-    width 0.3s cubic-bezier(0.2, 1.4, 0.4, 1),
-    height 0.3s cubic-bezier(0.2, 1.4, 0.4, 1),
+    transform 0.3s cubic-bezier(0.2, 1.4, 0.4, 1),
     border-color 0.3s,
     background 0.3s;
 }
-.cursor-ring.expanded {
-  width: 64px;
-  height: 64px;
+.cursor-ring.expanded::before {
+  transform: scale(1.68);
   border-color: rgba(255, 233, 168, 0.9);
   background: rgba(212, 175, 55, 0.1);
 }
+/* Пульс только над интерактивом — не постоянно */
 .cursor-ring::after {
   content: '';
   position: absolute;
   inset: -4px;
   border-radius: 50%;
   border: 1px solid rgba(212, 175, 55, 0.25);
+  opacity: 0;
+}
+.cursor-ring.expanded::after {
+  opacity: 1;
   animation: cursor-pulse 2s ease-out infinite;
 }
 @keyframes cursor-pulse {
@@ -156,9 +165,45 @@ html.custom-cursor select {
     border-color 0.2s,
     box-shadow 0.3s;
 }
-@media (pointer: fine) {
+@media (hover: hover) and (pointer: fine) {
   .btn-spring:hover {
     transform: scale(1.06);
+  }
+}
+/* Физический отклик нажатия: быстро вниз, пружиной обратно */
+.btn-spring:active {
+  transform: scale(0.97);
+  transition:
+    transform 0.1s ease-out,
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.3s;
+}
+
+/* ---------- Золотая кнопка: плавный градиент через @property ---------- */
+@property --btn-g1 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #e8c65a;
+}
+@property --btn-g2 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #c9a22e;
+}
+.btn-gold {
+  background: linear-gradient(180deg, var(--btn-g1), var(--btn-g2));
+  transition:
+    transform 0.3s cubic-bezier(0.2, 1.4, 0.4, 1),
+    --btn-g1 0.25s ease,
+    --btn-g2 0.25s ease,
+    box-shadow 0.3s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-gold:hover {
+    --btn-g1: #f0d06a;
+    --btn-g2: #d4af37;
   }
 }
 
